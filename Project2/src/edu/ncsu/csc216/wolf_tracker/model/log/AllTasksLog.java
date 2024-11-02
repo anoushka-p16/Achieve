@@ -12,10 +12,8 @@ public class AllTasksLog extends AbstractTaskLog {
 
 	/**
 	 * Constructor for AllTasksLog.
-	 * 
-	 * @param ALL_TASKS_NAME the constant representing "All tasks".
 	 */
-	public AllTasksLog(String ALL_TASKS_NAME) {
+	public AllTasksLog() {
 		super(ALL_TASKS_NAME);
 	}
 
