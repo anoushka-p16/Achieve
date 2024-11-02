@@ -6,7 +6,7 @@ package edu.ncsu.csc216.wolf_tracker.model.util;
  * @param <E> the list of elements.
  * @author Anoushka Piduru
  */
-public class LogList<E> {
+public class LogList<E extends Comparable<E>> implements ILogList<E> {
 	/** A list of elements. */
 	private E[] list;
 	/** The size of the list. */
