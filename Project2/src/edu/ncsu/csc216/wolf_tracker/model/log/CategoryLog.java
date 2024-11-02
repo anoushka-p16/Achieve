@@ -41,7 +41,7 @@ public class CategoryLog extends AbstractTaskLog {
 	}
 
 	/**
-	 * Overrides the abstract class method. Abstract class' addTask() is called. The
+	 * Overrides the abstract class method, Abstract class' addTask() is called. The
 	 * CategoryLog will add itself to the Task.
 	 * 
 	 * @param t the task to be added.
