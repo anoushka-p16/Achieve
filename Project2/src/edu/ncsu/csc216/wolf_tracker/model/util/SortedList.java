@@ -6,7 +6,7 @@ package edu.ncsu.csc216.wolf_tracker.model.util;
  * @param <E> the list of elements.
  * @author Anoushka Piduru
  */
-public class SortedList<E> {
+public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	/** The size of the linked list. */
 	private int size;
 
@@ -63,5 +63,23 @@ public class SortedList<E> {
 	 */
 	public int size() {
 		return 0;
+	}
+
+	/**
+	 * Inner class handling nodes in the linked list.
+	 */
+	private class ListNode {
+		/** Data stored in the node. */
+		public E data;
+
+		/**
+		 * Constructs a ListNode.
+		 * 
+		 * @param element  the data to be stored in the node.
+		 * @param listNode the next listNode in the linked list.
+		 */
+		public ListNode(E element, ListNode listNode) {
+			// Implement
+		}
 	}
 }
