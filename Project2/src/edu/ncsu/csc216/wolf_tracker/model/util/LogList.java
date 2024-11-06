@@ -18,16 +18,23 @@ public class LogList<E extends Comparable<E>> implements ILogList<E> {
 	 * Constructor for LogList.
 	 */
 	public LogList() {
-		// Implement
+		list = (E[]) new Comparable[INIT_CAP];
+		size = 0;
 	}
 
 	/**
 	 * Adds the element to the end of the list.
 	 * 
 	 * @param element the element being added.
+	 * @throws NullPointerException if element is null.
 	 */
 	public void addLog(E element) {
-		// Implement
+		if (element == null) {
+			throw new NullPointerException("Cannot add null element.");
+		}
+		ensureCapacity();
+		list[size] = element;
+		size++;
 	}
 
 	/**
@@ -35,9 +42,18 @@ public class LogList<E extends Comparable<E>> implements ILogList<E> {
 	 * 
 	 * @param idx     the index to be added to.
 	 * @param element the element to be added.
+	 * @throws NullPointerException if element is null, or IndexOutOfBoundsException
+	 *                              if index is out of valid bounds.
 	 */
 	public void setLog(int idx, E element) {
-		// Implement
+		if (element == null) {
+			throw new NullPointerException("Cannot add null element.");
+		}
+		if (idx < 0 || idx > size()) {
+			throw new IndexOutOfBoundsException("Invalid index.");
+		}
+
+		list[idx] = element;
 	}
 
 	/**
@@ -45,9 +61,18 @@ public class LogList<E extends Comparable<E>> implements ILogList<E> {
 	 * 
 	 * @param idx the index to be removed.
 	 * @return the element at the given index.
+	 * @throws IndexOutOfBoundsException if index is out of valid bounds.
 	 */
 	public E removeLog(int idx) {
-		return null;
+		if (idx < 0 || idx >= size) {
+			throw new IndexOutOfBoundsException("Invalid index.");
+		}
+		E remove = list[idx];
+		for (int i = idx; i < size - 1; i++) {
+			list[i] = list[i + 1];
+		}
+		size--;
+		return remove;
 	}
 
 	/**
@@ -55,9 +80,13 @@ public class LogList<E extends Comparable<E>> implements ILogList<E> {
 	 * 
 	 * @param idx the index of the element to be returned.
 	 * @return the element at the given index.
+	 * @throws IndexOutOfBoundsException if index is out of valid bounds.
 	 */
 	public E getLog(int idx) {
-		return null;
+		if (idx < 0 || idx >= size) {
+			throw new IndexOutOfBoundsException("Invalid index.");
+		}
+		return list[idx];
 	}
 
 	/**
@@ -66,15 +95,20 @@ public class LogList<E extends Comparable<E>> implements ILogList<E> {
 	 * @return the size of the list.
 	 */
 	public int size() {
-		return 0;
+		return size;
 	}
 
 	/**
 	 * Ensures the capacity of the list has not been exceeded.
 	 * 
 	 * @param INIT_CAP the capacity of the list.
+	 * @throws IllegalArgumentException if capacity has been exceeded.
 	 */
 	private void ensureCapacity(int INIT_CAP) {
-		// Implement
+		if (size < INIT_CAP) {
+			return;
+		} else {
+			throw new IllegalArgumentException("List has reached capacity.");
+		}
 	}
 }
