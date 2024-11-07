@@ -1,7 +1,8 @@
 package edu.ncsu.csc216.wolf_tracker.model.util;
 
 /**
- * Implements the ISortedList interface. Handles functionality for linked lists.
+ * Implements the ISortedList interface. Handles functionality for an array
+ * list.
  * 
  * @param <E> the list of elements.
  * @author Anoushka Piduru

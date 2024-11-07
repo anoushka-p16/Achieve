@@ -1,7 +1,7 @@
 package edu.ncsu.csc216.wolf_tracker.model.util;
 
 /**
- * Implements the ILogList interface with functionality for an array-based list.
+ * Implements the ILogList interface with functionality for a linked list.
  * 
  * @param <E> the list of elements.
  * @author Anoushka Piduru
@@ -32,7 +32,7 @@ public class LogList<E extends Comparable<E>> implements ILogList<E> {
 		if (element == null) {
 			throw new NullPointerException("Cannot add null element.");
 		}
-		ensureCapacity();
+		ensureCapacity(size);
 		list[size] = element;
 		size++;
 	}
@@ -104,10 +104,8 @@ public class LogList<E extends Comparable<E>> implements ILogList<E> {
 	 * @param INIT_CAP the capacity of the list.
 	 * @throws IllegalArgumentException if capacity has been exceeded.
 	 */
-	private void ensureCapacity(int INIT_CAP) {
-		if (size < INIT_CAP) {
-			return;
-		} else {
+	private void ensureCapacity(int size) {
+		if (size >= INIT_CAP) {
 			throw new IllegalArgumentException("List has reached capacity.");
 		}
 	}
