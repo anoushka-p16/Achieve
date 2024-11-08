@@ -25,13 +25,22 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * Adds an element to the list in sorted order.
 	 * 
 	 * @param element the element to be added.
+	 * @throws IllegalArgumentException if element is null, or
+	 *                                  IllegalArgumentException if element is
+	 *                                  duplicate of another.
 	 */
 	public void add(E element) {
+		if (element == null) {
+			throw new IllegalArgumentException("Cannot add null element.");
+		}
 		if (head == null) {
 			head = new ListNode(element, head);
 		} else {
 			ListNode current = head;
-			while (current.next != null && current.next.data.compareTo(element) < 0) {
+			while (current.next != null && current.next.data.compareTo(element) <= 0) {
+				if (current.next.data.compareTo(element) == 0) {
+					throw new IllegalArgumentException("Cannot add duplicate element");
+				}
 				current = current.next;
 			}
 			current.next = new ListNode(element, current.next);
