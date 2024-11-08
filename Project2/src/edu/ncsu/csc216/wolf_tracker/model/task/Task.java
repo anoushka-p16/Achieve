@@ -25,7 +25,9 @@ public class Task {
 	 * @param taskDetails  the task description.
 	 */
 	public Task(String taskTitle, int taskDuration, String taskDetails) {
-		// Implement
+		setTaskTitle(taskTitle);
+		setTaskDuration(taskDuration);
+		setTaskDetails(taskDetails);
 	}
 
 	/**
@@ -35,16 +37,20 @@ public class Task {
 	 * @return the task title.
 	 */
 	public String getTaskTitle() {
-		return null;
+		return taskTitle;
 	}
 
 	/**
 	 * Setter for the task title.
 	 * 
 	 * @param taskTitle the name of the task.
+	 * @throws IllegalArgumentException if task title is null or empty.
 	 */
 	public void setTaskTitle(String taskTitle) {
-		// Implement
+		if (taskTitle == null || taskTitle.isEmpty()) {
+			throw new IllegalArgumentException("Incomplete task information.");
+		}
+		this.taskTitle = taskTitle;
 	}
 
 	/**
@@ -53,16 +59,20 @@ public class Task {
 	 * @return the task duration.
 	 */
 	public int getTaskDuration() {
-		return 0;
+		return taskDuration;
 	}
 
 	/**
 	 * Setter for the task duration.
 	 * 
 	 * @param taskDuration the time spent on the task.
+	 * @throws IllegalArgumentException if task duration is less than one minute.
 	 */
 	public void setTaskDuration(int taskDuration) {
-		// Implement
+		if (taskDuration < 1) {
+			throw new IllegalArgumentException("Incomplete task information.");
+		}
+		this.taskDuration = taskDuration;
 	}
 
 	/**
@@ -71,25 +81,34 @@ public class Task {
 	 * @return the description of the task.
 	 */
 	public String getTaskDetails() {
-		return null;
+		return taskDetails;
 	}
 
 	/**
 	 * Setter for the task details.
 	 * 
 	 * @param taskDetails the description of the task.
+	 * @throws IllegalArgumentException if task details is null or empty.
 	 */
 	public void setTaskDetails(String taskDetails) {
-		// Implement
+		if (taskDetails == null || taskDetails.isEmpty()) {
+			throw new IllegalArgumentException("Incomplete task information.");
+		}
+		this.taskDetails = taskDetails;
 	}
 
 	/**
 	 * Adds a new category.
 	 * 
 	 * @param category the category to be added.
+	 * @throws IllegalArgumentException if category is null or an assigned category
+	 *                                  already exists.
 	 */
 	public void addCategory(CategoryLog category) {
-		// Implement
+		if (category == null || this.category != null) {
+			throw new IllegalArgumentException("Incomplete task information.");
+		}
+		this.category = category;
 	}
 
 	/**
@@ -98,15 +117,21 @@ public class Task {
 	 * @return the name of the category.
 	 */
 	public String getCategoryName() {
-		return null;
+		if (category == null) {
+			return "";
+		}
+		return category + "";
 	}
 
 	/**
 	 * Forms a string representation of the task.
-	 * 
+	 *
 	 * @return string representation of task.
 	 */
 	public String toString() {
-		return null;
+		String s = "";
+		s += taskTitle + "," + taskDuration + "," + category + "\n";
+		s += taskDetails;
+		return s;
 	}
 }
