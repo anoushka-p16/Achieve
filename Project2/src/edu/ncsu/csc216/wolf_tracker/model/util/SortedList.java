@@ -1,7 +1,7 @@
 package edu.ncsu.csc216.wolf_tracker.model.util;
 
 /**
- * Implements the ISortedList interface. Handles functionality for an array
+ * Implements the ISortedList interface. Handles functionality for a linked
  * list.
  * 
  * @param <E> the list of elements.
@@ -10,12 +10,15 @@ package edu.ncsu.csc216.wolf_tracker.model.util;
 public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	/** The size of the linked list. */
 	private int size;
+	/** The first node of the linked list. */
+	private ListNode head;
 
 	/**
 	 * Constructor for SortedList.
 	 */
 	public SortedList() {
-		// Implement
+		head = null;
+		size = 0;
 	}
 
 	/**
@@ -24,7 +27,16 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * @param element the element to be added.
 	 */
 	public void add(E element) {
-		// Implement
+		if (head == null) {
+			head = new ListNode(element, head);
+		} else {
+			ListNode current = head;
+			while (current.next != null && current.next.data.compareTo(element) < 0) {
+				current = current.next;
+			}
+			current.next = new ListNode(element, current.next);
+		}
+		size++;
 	}
 
 	/**
@@ -32,9 +44,28 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * 
 	 * @param idx the index to be removed.
 	 * @return the element at the given index.
+	 * @throws IndexOutOfBoundsException if index is invalid.
 	 */
 	public E remove(int idx) {
-		return null;
+		if (idx < 0 || idx >= size) {
+			throw new IndexOutOfBoundsException("Invalid index.");
+		}
+
+		ListNode current = head;
+		ListNode remove;
+
+		if (idx == 0) {
+			remove = head;
+			head = head.next;
+		} else {
+			for (int i = 0; i < idx - 1; i++) {
+				current = current.next;
+			}
+			remove = current.next;
+			current.next = current.next.next;
+		}
+		size--;
+		return remove.data;
 	}
 
 	/**
@@ -44,6 +75,13 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * @return true if the list contains the element, false if not.
 	 */
 	public boolean contains(E element) {
+		ListNode current = head;
+		while (current != null) {
+			if (current.data.compareTo(element) == 0) {
+				return true;
+			}
+			current = current.next;
+		}
 		return false;
 	}
 
@@ -52,9 +90,17 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * 
 	 * @param idx the index being checked.
 	 * @return the element at the given index.
+	 * @throws IndexOutOfBoundsException if index is invalid.
 	 */
 	public E get(int idx) {
-		return null;
+		if (idx < 0 || idx >= size) {
+			throw new IndexOutOfBoundsException("Invalid index.");
+		}
+		ListNode current = head;
+		for (int i = 0; i < idx; i++) {
+			current = current.next;
+		}
+		return current.data;
 	}
 
 	/**
@@ -63,7 +109,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * @return the size of the list.
 	 */
 	public int size() {
-		return 0;
+		return size;
 	}
 
 	/**
@@ -72,6 +118,8 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	private class ListNode {
 		/** Data stored in the node. */
 		public E data;
+		/** The next list node in the list. */
+		public ListNode next;
 
 		/**
 		 * Constructs a ListNode.
@@ -80,7 +128,8 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 		 * @param listNode the next listNode in the linked list.
 		 */
 		public ListNode(E element, ListNode listNode) {
-			// Implement
+			data = element;
+			next = listNode;
 		}
 	}
 }
