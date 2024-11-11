@@ -25,6 +25,9 @@ public class AllTasksLog extends AbstractTaskLog {
 	 */
 	@Override
 	public void setTaskLogName(String taskLogName) {
-		// Implement
+		if (!getName().equals(taskLogName)) {
+			throw new IllegalArgumentException("The All Tasks list may not be edited.");
+		}
+		super.setTaskLogName(taskLogName);
 	}
 }
