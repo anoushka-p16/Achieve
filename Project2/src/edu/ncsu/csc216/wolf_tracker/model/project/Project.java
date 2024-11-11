@@ -2,8 +2,13 @@ package edu.ncsu.csc216.wolf_tracker.model.project;
 
 import java.io.File;
 
+import edu.ncsu.csc216.wolf_tracker.model.io.ProjectWriter;
 import edu.ncsu.csc216.wolf_tracker.model.log.AbstractTaskLog;
+import edu.ncsu.csc216.wolf_tracker.model.log.AllTasksLog;
+import edu.ncsu.csc216.wolf_tracker.model.log.CategoryLog;
 import edu.ncsu.csc216.wolf_tracker.model.task.Task;
+import edu.ncsu.csc216.wolf_tracker.model.util.ISortedList;
+import edu.ncsu.csc216.wolf_tracker.model.util.SortedList;
 
 /**
  * Handles a project in the WolfTracker system.
@@ -11,12 +16,15 @@ import edu.ncsu.csc216.wolf_tracker.model.task.Task;
  * @author Anoushka Piduru
  */
 public class Project {
+	/** An ISortedList of CategoryLogs. */
+	private ISortedList<CategoryLog> categoryLogs;
+	/** An AllTasksLog. */
+	private AllTasksLog allTasksLog;
+	/** An AbstractTaskLog for the current log. */
+	private AbstractTaskLog currentLog;
 	/** The name of the project. */
 	private String projectName;
-	/**
-	 * Boolean representing whether a project has been modified since the last file
-	 * save.
-	 */
+	/** Represents if project was modified since last file save. */
 	private boolean isChanged;
 
 	/**
@@ -25,7 +33,14 @@ public class Project {
 	 * @param projectName the name of the project.
 	 */
 	public Project(String projectName) {
-		// Implement
+		if (projectName == null || projectName.isEmpty() || projectName.equals(AllTasksLog.ALL_TASKS_NAME)) {
+			throw new IllegalArgumentException();
+		}
+		this.projectName = projectName;
+		this.categoryLogs = new SortedList<CategoryLog>();
+		this.allTasksLog = new AllTasksLog();
+		this.currentLog = allTasksLog;
+		this.isChanged = true;
 	}
 
 	/**
@@ -34,7 +49,8 @@ public class Project {
 	 * @param projectFile the name of the file being saved to.
 	 */
 	public void saveProject(File projectFile) {
-		// Implement
+		isChanged = false;
+		ProjectWriter.writeProjectFile(projectFile, this);
 	}
 
 	/**
@@ -43,7 +59,7 @@ public class Project {
 	 * @param statsFile the name of the file being saved to.
 	 */
 	public void saveStats(File statsFile) {
-		// Implement
+		ProjectWriter.writeStatsFile(statsFile, this);
 	}
 
 	/**
@@ -52,7 +68,7 @@ public class Project {
 	 * @return the name of the project.
 	 */
 	public String getProjectName() {
-		return null;
+		return projectName;
 	}
 
 	/**
@@ -89,7 +105,7 @@ public class Project {
 	 * @param categoryName the name of the category.
 	 */
 	public void addCategoryLog(String categoryName) {
-		// Implement
+		CategoryLog log = new CategoryLog(categoryName);
 	}
 
 	/**

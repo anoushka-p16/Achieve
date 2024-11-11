@@ -8,7 +8,7 @@ import edu.ncsu.csc216.wolf_tracker.model.task.Task;
  * 
  * @author Anoushka Piduru
  */
-public class CategoryLog extends AbstractTaskLog {
+public class CategoryLog extends AbstractTaskLog implements Comparable<CategoryLog> {
 	/**
 	 * Constructor for CategoryLog.
 	 * 

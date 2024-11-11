@@ -16,7 +16,7 @@ public class ProjectWriter {
 	 * @param filename the file being written to.
 	 * @param project  the project being written.
 	 */
-	public void writeProjectFile(File filename, Project project) {
+	public static void writeProjectFile(File filename, Project project) {
 		// Implement
 	}
 
@@ -26,7 +26,7 @@ public class ProjectWriter {
 	 * @param filename the file being written to.
 	 * @param project  the project for which summary statistics are calculated.
 	 */
-	public void writeStatsFile(File filename, Project project) {
+	public static void writeStatsFile(File filename, Project project) {
 		// Implement
 	}
 }
