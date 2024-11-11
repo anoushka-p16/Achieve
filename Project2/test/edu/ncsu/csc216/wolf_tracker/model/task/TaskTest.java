@@ -60,10 +60,27 @@ class TaskTest {
 	@Test
 	void testAddCategory() {
 		task = new Task("Task", 45, "Description");
-		assertEquals("Description", task.getTaskDetails());
 
 		// Null category
 		assertThrows(IllegalArgumentException.class, () -> task.addCategory(null));
+		assertEquals("", task.getCategoryName());
+
+		category = new CategoryLog("CSC116");
+		task.addCategory(category);
+		assertEquals("CSC116", task.getCategoryName());
+
+	}
+
+	/**
+	 * Tests the toString method.
+	 */
+	@Test
+	void testToString() {
+		task = new Task("Task 1", 65, "Completed Project 1");
+		category = new CategoryLog("CSC116");
+		task.addCategory(category);
+
+		assertEquals("Task 1,65,CSC116\nCompleted Project 1", task.toString());
 	}
 
 }

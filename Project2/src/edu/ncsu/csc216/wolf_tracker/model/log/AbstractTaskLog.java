@@ -46,9 +46,6 @@ public abstract class AbstractTaskLog {
 	 * @param taskLogName the name of the task log.
 	 */
 	public void setTaskLogName(String taskLogName) {
-		if (taskLogName == null || taskLogName.isEmpty()) {
-			throw new IllegalArgumentException();
-		}
 		this.taskLogName = taskLogName;
 	}
 
@@ -176,10 +173,8 @@ public abstract class AbstractTaskLog {
 	 */
 	public String toString() {
 		String s = "Category,Count,Min,Max,Average" + "\n";
-		for (int i = 0; i < list.size(); i++) {
-			s += getName() + "," + getTaskCount() + "," + getMinDuration() + "," + getMaxDuration() + ","
-					+ getAvgDuration() + "\n";
-		}
+		s += getName() + "," + getTaskCount() + "," + getMinDuration() + "," + getMaxDuration() + "," + getAvgDuration()
+				+ "\n";
 		return s;
 	}
 }

@@ -22,10 +22,18 @@ public class CategoryLog extends AbstractTaskLog {
 	 * Compares the names of the category logs, ignoring case.
 	 * 
 	 * @param c the category log being compared to.
-	 * @return 0 if the category names match, 1 if not.
+	 * @return 0 if the category names match, -1 if the name is lexicographically
+	 *         less than the object being compared to, or 1 if the name
+	 *         lexicographically greater.
 	 */
 	public int compareTo(CategoryLog c) {
-		return getName().compareToIgnoreCase(c.getName());
+		if (getName().compareToIgnoreCase(c.getName()) < 0) {
+			return -1;
+		} else if (getName().compareToIgnoreCase(c.getName()) > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	/**

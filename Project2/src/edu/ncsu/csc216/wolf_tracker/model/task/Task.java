@@ -120,7 +120,7 @@ public class Task {
 		if (category == null) {
 			return "";
 		}
-		return category + "";
+		return category.getName();
 	}
 
 	/**
@@ -130,8 +130,8 @@ public class Task {
 	 */
 	public String toString() {
 		String s = "";
-		s += taskTitle + "," + taskDuration + "," + category + "\n";
-		s += taskDetails;
+		s += getTaskTitle() + "," + getTaskDuration() + "," + getCategoryName() + "\n";
+		s += getTaskDetails();
 		return s;
 	}
 }
