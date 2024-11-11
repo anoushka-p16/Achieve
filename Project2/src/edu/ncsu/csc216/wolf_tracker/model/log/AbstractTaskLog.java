@@ -2,6 +2,7 @@ package edu.ncsu.csc216.wolf_tracker.model.log;
 
 import edu.ncsu.csc216.wolf_tracker.model.task.Task;
 import edu.ncsu.csc216.wolf_tracker.model.util.ILogList;
+import edu.ncsu.csc216.wolf_tracker.model.util.LogList;
 
 /**
  * An abstract class representing a log of tasks. Extended by classes
@@ -13,14 +14,21 @@ import edu.ncsu.csc216.wolf_tracker.model.util.ILogList;
 public abstract class AbstractTaskLog {
 	/** Represents the name of the task log. */
 	private String taskLogName;
+	/** The ILogList of tasks. */
+	private ILogList<Task> list;
 
 	/**
 	 * Constructor for abstract task log.
 	 * 
 	 * @param taskListName the name of the task list.
+	 * @throws IllegalArgumentException if task list name is null or empty.
 	 */
 	public AbstractTaskLog(String taskListName) {
-		// Implement
+		if (taskListName == null || taskListName.isEmpty()) {
+			throw new IllegalArgumentException("Invalid name.");
+		}
+		setTaskLogName(taskListName);
+		list = new LogList<Task>();
 	}
 
 	/**
@@ -29,7 +37,7 @@ public abstract class AbstractTaskLog {
 	 * @return the name of the task log.
 	 */
 	public String getName() {
-		return null;
+		return taskLogName;
 	}
 
 	/**
@@ -38,7 +46,10 @@ public abstract class AbstractTaskLog {
 	 * @param taskLogName the name of the task log.
 	 */
 	public void setTaskLogName(String taskLogName) {
-		// Implement
+		if (taskLogName == null || taskLogName.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		this.taskLogName = taskLogName;
 	}
 
 	/**
@@ -47,16 +58,17 @@ public abstract class AbstractTaskLog {
 	 * @return a list of tasks.
 	 */
 	public ILogList<Task> getTasks() {
-		return null;
+		return list;
 	}
 
 	/**
 	 * Adds a new task.
 	 * 
 	 * @param t the task to be added.
+	 * @throws NullPointerException if task is null.
 	 */
 	public void addTask(Task t) {
-		// Implement
+		list.addLog(t);
 	}
 
 	/**
@@ -66,7 +78,7 @@ public abstract class AbstractTaskLog {
 	 * @param t   the task to be added.
 	 */
 	public void setTask(int idx, Task t) {
-		// Implement
+		list.setLog(idx, t);
 	}
 
 	/**
@@ -76,7 +88,7 @@ public abstract class AbstractTaskLog {
 	 * @return the task which was removed.
 	 */
 	public Task removeTask(int idx) {
-		return null;
+		return list.removeLog(idx);
 	}
 
 	/**
@@ -86,7 +98,7 @@ public abstract class AbstractTaskLog {
 	 * @return the task at the specified index.
 	 */
 	public Task getTask(int idx) {
-		return null;
+		return list.getLog(idx);
 	}
 
 	/**
@@ -95,7 +107,7 @@ public abstract class AbstractTaskLog {
 	 * @return the number of tasks.
 	 */
 	public int getTaskCount() {
-		return 0;
+		return list.size();
 	}
 
 	/**
@@ -104,7 +116,13 @@ public abstract class AbstractTaskLog {
 	 * @return the minimum time spent on a task.
 	 */
 	public int getMinDuration() {
-		return 0;
+		int min = list.getLog(0).getTaskDuration();
+		for (int i = 1; i < getTaskCount(); i++) {
+			if (list.getLog(i).getTaskDuration() < min) {
+				min = list.getLog(i).getTaskDuration();
+			}
+		}
+		return min;
 	}
 
 	/**
@@ -113,7 +131,13 @@ public abstract class AbstractTaskLog {
 	 * @return the maximum time spent on a task.
 	 */
 	public int getMaxDuration() {
-		return 0;
+		int max = list.getLog(0).getTaskDuration();
+		for (int i = 1; i < getTaskCount(); i++) {
+			if (list.getLog(i).getTaskDuration() > max) {
+				max = list.getLog(i).getTaskDuration();
+			}
+		}
+		return max;
 	}
 
 	/**
@@ -122,7 +146,12 @@ public abstract class AbstractTaskLog {
 	 * @return the average time spent on a task.
 	 */
 	public double getAvgDuration() {
-		return 0;
+		int avg = 0;
+		for (int i = 0; i < getTaskCount(); i++) {
+			avg += list.getLog(i).getTaskDuration();
+		}
+		avg = avg / getTaskCount();
+		return avg;
 	}
 
 	/**
@@ -131,7 +160,13 @@ public abstract class AbstractTaskLog {
 	 * @return a 2D string representation of the task log.
 	 */
 	public String[][] getTasksAsArray() {
-		return null;
+		String[][] taskArray = new String[getTaskCount()][3];
+		for (int i = 0; i < getTaskCount(); i++) {
+			taskArray[i][0] = list.getLog(i).getTaskTitle();
+			taskArray[i][1] = list.getLog(i).getTaskDuration() + "";
+			taskArray[i][2] = list.getLog(i).getCategoryName();
+		}
+		return taskArray;
 	}
 
 	/**
@@ -140,6 +175,11 @@ public abstract class AbstractTaskLog {
 	 * @return string representation of task log.
 	 */
 	public String toString() {
-		return null;
+		String s = "Category,Count,Min,Max,Average" + "\n";
+		for (int i = 0; i < list.size(); i++) {
+			s += getName() + "," + getTaskCount() + "," + getMinDuration() + "," + getMaxDuration() + ","
+					+ getAvgDuration() + "\n";
+		}
+		return s;
 	}
 }
