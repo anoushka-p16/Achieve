@@ -25,7 +25,7 @@ public class CategoryLog extends AbstractTaskLog {
 	 * @return 0 if the category names match, 1 if not.
 	 */
 	public int compareTo(CategoryLog c) {
-		return 0;
+		return getName().compareToIgnoreCase(c.getName());
 	}
 
 	/**
@@ -37,7 +37,8 @@ public class CategoryLog extends AbstractTaskLog {
 	 */
 	@Override
 	public void setTask(int idx, Task t) {
-		// Implement
+		super.setTask(idx, t);
+		t.addCategory(this);
 	}
 
 	/**
@@ -48,6 +49,7 @@ public class CategoryLog extends AbstractTaskLog {
 	 */
 	@Override
 	public void addTask(Task t) {
-		// Implement
+		super.addTask(t);
+		t.addCategory(this);
 	}
 }
