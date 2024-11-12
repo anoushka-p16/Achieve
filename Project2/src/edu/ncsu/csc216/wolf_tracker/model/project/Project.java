@@ -40,7 +40,7 @@ public class Project {
 		this.categoryLogs = new SortedList<CategoryLog>();
 		this.allTasksLog = new AllTasksLog();
 		this.currentLog = allTasksLog;
-		this.isChanged = true;
+		setChanged(true);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class Project {
 		if (projectFile == null) {
 			throw new IllegalArgumentException();
 		}
-		isChanged = false;
+		setChanged(false);
 		ProjectWriter.writeProjectFile(projectFile, this);
 	}
 
@@ -82,7 +82,7 @@ public class Project {
 	 * 
 	 * @param projectName the name of the project.
 	 */
-	private void setProjectName(String projectName) {
+	void setProjectName(String projectName) {
 		if (projectName == null || projectName.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
@@ -120,7 +120,7 @@ public class Project {
 		CategoryLog log = new CategoryLog(categoryName);
 		categoryLogs.add(log);
 		currentLog = log;
-		isChanged = true;
+		setChanged(true);
 	}
 
 	/**
@@ -131,8 +131,8 @@ public class Project {
 	public String[] getCategoryNames() {
 		String[] categoryNames = new String[categoryLogs.size() + 1];
 		categoryNames[0] = AllTasksLog.ALL_TASKS_NAME;
-		for (int i = 1; i < categoryLogs.size(); i++) {
-			categoryNames[i] = categoryLogs.get(i).getName();
+		for (int i = 0; i < categoryLogs.size(); i++) {
+			categoryNames[i + 1] = categoryLogs.get(i).getName();
 		}
 		return categoryNames;
 	}
@@ -154,7 +154,7 @@ public class Project {
 			}
 			currentLog = allTasksLog;
 		}
-		isChanged = true;
+		setChanged(true);
 	}
 
 	/**
@@ -191,7 +191,7 @@ public class Project {
 		editLog.setTaskLogName(categoryName);
 		categoryLogs.add(editLog);
 		currentLog = editLog;
-		isChanged = true;
+		setChanged(true);
 
 	}
 
@@ -203,20 +203,22 @@ public class Project {
 			throw new IllegalArgumentException("The All Tasks log may not be deleted.");
 		}
 		CategoryLog removeLog = (CategoryLog) currentLog;
+
 		for (int i = 0; i < categoryLogs.size(); i++) {
 			if (categoryLogs.get(i).equals(removeLog)) {
 				categoryLogs.remove(i);
 				break;
 			}
 		}
-		currentLog = allTasksLog;
-		for (int i = 0; i < allTasksLog.getTaskCount(); i++) {
-			if (allTasksLog.getTask(i).getCategoryName() == removeLog.getName()) {
+
+		for (int i = allTasksLog.getTaskCount() - 1; i >= 0; i--) {
+			Task task = allTasksLog.getTask(i);
+			if (task.getCategoryName().equals(removeLog.getName())) {
 				allTasksLog.removeTask(i);
 			}
 		}
 		currentLog = allTasksLog;
-		isChanged = true;
+		setChanged(true);
 	}
 
 	/**
@@ -227,11 +229,9 @@ public class Project {
 	public void addTask(Task t) {
 		if (currentLog instanceof CategoryLog) {
 			currentLog.addTask(t);
-			allTasksLog.addTask(t);
-			isChanged = true;
-		} else {
-			return;
 		}
+		allTasksLog.addTask(t);
+		setChanged(true);
 	}
 
 	/**
@@ -252,7 +252,7 @@ public class Project {
 		task.setTaskDuration(taskDuration);
 		task.setTaskDetails(taskDetails);
 
-		isChanged = true;
+		setChanged(true);
 	}
 
 	/**
@@ -267,7 +267,7 @@ public class Project {
 		currentLog.removeTask(idx);
 		allTasksLog.removeTask(idx);
 
-		isChanged = true;
+		setChanged(true);
 	}
 
 	/**
