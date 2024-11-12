@@ -1,8 +1,13 @@
 package edu.ncsu.csc216.wolf_tracker.model.io;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import edu.ncsu.csc216.wolf_tracker.model.project.Project;
+import edu.ncsu.csc216.wolf_tracker.model.task.Task;
+import edu.ncsu.csc216.wolf_tracker.model.util.LogList;
 
 /**
  * Handles reading and processing project files.
@@ -17,7 +22,42 @@ public class ProjectReader {
 	 * @return the Project object which was read.
 	 */
 	public static Project readProjectFile(File filename) {
-		return null;
+		String s = "";
+		Project project = null;
+
+		try {
+			Scanner scnr = new Scanner(new FileInputStream(filename));
+			while (scnr.hasNextLine()) {
+				s += scnr.nextLine() + "\n";
+			}
+			scnr.close();
+
+			String[] projectStrings = s.split("\\r?\\n");
+
+			String lineOne = projectStrings[0].trim();
+			if (!lineOne.startsWith("!")) {
+				throw new IllegalArgumentException("Unable to load file.");
+			}
+
+			project = new Project(lineOne.substring(1).trim());
+
+			LogList<String> categoryList = new LogList<>();
+			for (int i = 1; i < projectStrings.length; i++) {
+				String projectString = projectStrings[i].trim();
+
+				if (projectString.startsWith("#")) {
+					categoryList.addLog(projectString.substring(1).trim());
+				} else if (!projectString.isEmpty()) {
+					processTask(project, projectString);
+				}
+			}
+			for (int i = 0; i < categoryList.size(); i++) {
+				project.addCategoryLog(categoryList.getLog(i));
+			}
+		} catch (FileNotFoundException e) {
+			throw new IllegalArgumentException("Unable to load file.");
+		}
+		return project;
 	}
 
 	/**
@@ -26,7 +66,32 @@ public class ProjectReader {
 	 * @param project the project being read.
 	 * @param line    a line of the project file.
 	 */
-	private void processTask(Project project, String line) {
-		// Implement
+	private static void processTask(Project project, String line) {
+		String[] taskParams = line.split(",");
+		if (taskParams.length < 3) {
+			return;
+		}
+
+		String taskTitle = taskParams[0].trim();
+		int taskDuration;
+
+		try {
+			taskDuration = Integer.parseInt(taskParams[1].trim());
+		} catch (NumberFormatException e) {
+			return;
+		}
+
+		String categoryName = taskParams[2].trim();
+
+		String taskDetails = "";
+		for (int i = 3; i < taskParams.length; i++) {
+			taskDetails += taskParams[i].trim() + "\n";
+		}
+
+		Task task = new Task(taskTitle, taskDuration, taskDetails);
+
+		project.addCategoryLog(categoryName);
+		project.setCurrentTaskLog(categoryName);
+		project.addTask(task);
 	}
 }

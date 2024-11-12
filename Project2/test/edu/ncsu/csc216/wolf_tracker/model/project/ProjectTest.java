@@ -86,8 +86,13 @@ class ProjectTest {
 		assertThrows(IllegalArgumentException.class, () -> project.addCategoryLog(""));
 		assertThrows(IllegalArgumentException.class, () -> project.addCategoryLog("All Tasks"));
 
+		project.addCategoryLog("Labs");
+		project.addCategoryLog("Notes");
 		project.addCategoryLog("Homework");
 		assertEquals("Homework", project.getCurrentLog().getName());
+
+		assertEquals(4, project.getCategoryNames().length);
+		assertThrows(IllegalArgumentException.class, () -> project.addCategoryLog("Notes"));
 
 	}
 
@@ -276,22 +281,92 @@ class ProjectTest {
 	void testRemoveTask() {
 		project = new Project("MA305");
 
-		project.addTask(new Task("Task 1", 60, "Descripion 1"));
-		project.addTask(new Task("Task 2", 60, "Descripion 2"));
-		project.addTask(new Task("Task 3", 60, "Descripion 3"));
+		project.addTask(new Task("Task 1", 60, "Description 1"));
+		project.addTask(new Task("Task 2", 60, "Description 2"));
+		project.addTask(new Task("Task 3", 60, "Description 3"));
 
 		assertEquals(3, project.getCurrentLog().getTaskCount());
 
-		project.setCurrentTaskLog("All Tasks");
-		project.removeTask(1);
+		project.removeTask(2);
 		assertEquals(2, project.getCurrentLog().getTaskCount());
 
 		assertEquals("Task 1", project.getCurrentLog().getTask(0).getTaskTitle());
-		assertEquals("Task 3", project.getCurrentLog().getTask(1).getTaskTitle());
+		assertEquals("Task 2", project.getCurrentLog().getTask(1).getTaskTitle());
+
 		project.setCurrentTaskLog("All Tasks");
 		assertEquals("Task 1", project.getCurrentLog().getTask(0).getTaskTitle());
-		assertEquals("Task 3", project.getCurrentLog().getTask(1).getTaskTitle());
+		assertEquals("Task 2", project.getCurrentLog().getTask(1).getTaskTitle());
 
 		assertTrue(project.isChanged());
+	}
+
+	/**
+	 * Tests the getMostRecentTasks method.
+	 */
+	@Test
+	void testGetMostRecentTasks() {
+		project = new Project("MA305");
+
+		String[][] recentTasks = project.getMostRecentTasks();
+
+		assertEquals("None", recentTasks[0][0]);
+		assertEquals("", recentTasks[0][1]);
+		assertEquals(AllTasksLog.ALL_TASKS_NAME, recentTasks[0][2]);
+
+		project.addCategoryLog("Labs");
+		project.addTask(new Task("Task 1", 60, "Description 1"));
+		project.addTask(new Task("Task 2", 120, "Description 2"));
+
+		String[][] recentTasks2 = project.getMostRecentTasks();
+
+		assertEquals("Task 2", recentTasks2[0][0]);
+		assertEquals("120", recentTasks2[0][1]);
+		assertEquals(AllTasksLog.ALL_TASKS_NAME, recentTasks2[0][2]);
+	}
+
+	/**
+	 * Tests the getMostRecentTasks with added categories.
+	 */
+	@Test
+	void testGetMostRecentTasksWithCategories() {
+		project = new Project("MA305");
+
+		project.addTask(new Task("All Task 1", 60, "Description 1"));
+		project.addTask(new Task("All Task 2", 120, "Description 2"));
+		project.addCategoryLog("Labs");
+		project.setCurrentTaskLog("Labs");
+		project.addTask(new Task("Lab Task 1", 60, "Lab Description 1"));
+		project.addTask(new Task("Lab Task 2", 90, "Lab Description 2"));
+
+		String[][] recentTasks = project.getMostRecentTasks();
+
+		assertEquals("Lab Task 2", recentTasks[0][0]);
+		assertEquals("90", recentTasks[0][1]);
+		assertEquals(AllTasksLog.ALL_TASKS_NAME, recentTasks[0][2]);
+	}
+
+	/**
+	 * Tests getMostRecentTasks with several categories.
+	 */
+	@Test
+	void testGetRecentTasksMultipleCategories() {
+		project = new Project("MA305");
+
+		project.addTask(new Task("All Task 1", 60, "Description 1"));
+		project.addTask(new Task("All Task 2", 120, "Description 2"));
+
+		project.addCategoryLog("Labs");
+		project.setCurrentTaskLog("Labs");
+		project.addTask(new Task("Lab Task 1", 60, "Lab Description 1"));
+
+		project.addCategoryLog("Homework");
+		project.setCurrentTaskLog("Homework");
+		project.addTask(new Task("Homework Task 1", 30, "Homework Description 1"));
+
+		String[][] recentTasks = project.getMostRecentTasks();
+
+		assertEquals("Homework Task 1", recentTasks[0][0]);
+		assertEquals("30", recentTasks[0][1]);
+		assertEquals(AllTasksLog.ALL_TASKS_NAME, recentTasks[0][2]);
 	}
 }

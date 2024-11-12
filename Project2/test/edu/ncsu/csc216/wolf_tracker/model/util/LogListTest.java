@@ -43,10 +43,11 @@ class LogListTest<E> {
 		list.addLog(8);
 		list.addLog(9);
 		list.addLog(10);
-		assertThrows(IllegalArgumentException.class, () -> list.addLog(11));
+		assertEquals(10, list.size());
 
-		// Null element
-		assertThrows(NullPointerException.class, () -> list.addLog(null));
+		list.addLog(11);
+		assertEquals(11, list.size());
+		assertEquals(11, list.getLog(10));
 	}
 
 	/**

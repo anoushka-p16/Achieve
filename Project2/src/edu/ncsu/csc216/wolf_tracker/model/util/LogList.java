@@ -49,7 +49,7 @@ public class LogList<E> implements ILogList<E> {
 		if (element == null) {
 			throw new NullPointerException("Cannot add null element.");
 		}
-		if (idx < 0 || idx > size()) {
+		if (idx < 0 || idx >= size) {
 			throw new IndexOutOfBoundsException("Invalid index.");
 		}
 
@@ -105,8 +105,12 @@ public class LogList<E> implements ILogList<E> {
 	 * @throws IllegalArgumentException if capacity has been exceeded.
 	 */
 	private void ensureCapacity(int size) {
-		if (size >= INIT_CAP) {
-			throw new IllegalArgumentException("List has reached capacity.");
+		if (size >= list.length) {
+			E[] doubleArray = (E[]) new Object[list.length * 2];
+			for (int i = 0; i < list.length; i++) {
+				doubleArray[i] = list[i];
+			}
+			list = doubleArray;
 		}
 	}
 }
