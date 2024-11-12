@@ -36,7 +36,7 @@ public class Project {
 		if (projectName == null || projectName.isEmpty() || projectName.equals(AllTasksLog.ALL_TASKS_NAME)) {
 			throw new IllegalArgumentException();
 		}
-		this.projectName = projectName;
+		setProjectName(projectName);
 		this.categoryLogs = new SortedList<CategoryLog>();
 		this.allTasksLog = new AllTasksLog();
 		this.currentLog = allTasksLog;
@@ -49,6 +49,9 @@ public class Project {
 	 * @param projectFile the name of the file being saved to.
 	 */
 	public void saveProject(File projectFile) {
+		if (projectFile == null) {
+			throw new IllegalArgumentException();
+		}
 		isChanged = false;
 		ProjectWriter.writeProjectFile(projectFile, this);
 	}
@@ -59,6 +62,9 @@ public class Project {
 	 * @param statsFile the name of the file being saved to.
 	 */
 	public void saveStats(File statsFile) {
+		if (statsFile == null) {
+			throw new IllegalArgumentException();
+		}
 		ProjectWriter.writeStatsFile(statsFile, this);
 	}
 
@@ -77,7 +83,10 @@ public class Project {
 	 * @param projectName the name of the project.
 	 */
 	private void setProjectName(String projectName) {
-		// Implement
+		if (projectName == null || projectName.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		this.projectName = projectName;
 	}
 
 	/**
@@ -86,7 +95,7 @@ public class Project {
 	 * @return true if the project has changed, false if not.
 	 */
 	public boolean isChanged() {
-		return false;
+		return isChanged;
 	}
 
 	/**
@@ -96,7 +105,7 @@ public class Project {
 	 *                  not.
 	 */
 	public void setChanged(boolean isChanged) {
-		// Implement
+		this.isChanged = isChanged;
 	}
 
 	/**
@@ -105,7 +114,13 @@ public class Project {
 	 * @param categoryName the name of the category.
 	 */
 	public void addCategoryLog(String categoryName) {
+		if (categoryName == null || categoryName.isEmpty() || categoryName.equals(AllTasksLog.ALL_TASKS_NAME)) {
+			throw new IllegalArgumentException();
+		}
 		CategoryLog log = new CategoryLog(categoryName);
+		categoryLogs.add(log);
+		currentLog = log;
+		isChanged = true;
 	}
 
 	/**
@@ -114,7 +129,12 @@ public class Project {
 	 * @return a string array of category names.
 	 */
 	public String[] getCategoryNames() {
-		return null;
+		String[] categoryNames = new String[categoryLogs.size() + 1];
+		categoryNames[0] = AllTasksLog.ALL_TASKS_NAME;
+		for (int i = 1; i < categoryLogs.size(); i++) {
+			categoryNames[i] = categoryLogs.get(i).getName();
+		}
+		return categoryNames;
 	}
 
 	/**
@@ -123,7 +143,18 @@ public class Project {
 	 * @param logName the name of the log.
 	 */
 	public void setCurrentTaskLog(String logName) {
-		// Implement
+		if (logName.equals(AllTasksLog.ALL_TASKS_NAME)) {
+			currentLog = allTasksLog;
+		} else {
+			for (int i = 0; i < categoryLogs.size(); i++) {
+				if (categoryLogs.get(i).getName().equalsIgnoreCase(logName)) {
+					currentLog = categoryLogs.get(i);
+					return;
+				}
+			}
+			currentLog = allTasksLog;
+		}
+		isChanged = true;
 	}
 
 	/**
@@ -132,7 +163,7 @@ public class Project {
 	 * @return an abstract task log representing the current log.
 	 */
 	public AbstractTaskLog getCurrentLog() {
-		return null;
+		return currentLog;
 	}
 
 	/**
@@ -141,14 +172,51 @@ public class Project {
 	 * @param categoryName the new category name.
 	 */
 	public void editCategoryLogName(String categoryName) {
-		// Implement
+		if (categoryName == null || categoryName.isEmpty() || categoryName.equals(AllTasksLog.ALL_TASKS_NAME)
+				|| categoryLogs.contains(new CategoryLog(categoryName))) {
+			throw new IllegalArgumentException("Invalid name.");
+		}
+		if (currentLog instanceof AllTasksLog) {
+			throw new IllegalArgumentException("The All Tasks log may not be edited.");
+		}
+		CategoryLog editLog = (CategoryLog) currentLog;
+
+		for (int i = 0; i < categoryLogs.size(); i++) {
+			if (categoryLogs.get(i).equals(editLog)) {
+				categoryLogs.remove(i);
+				break;
+			}
+		}
+
+		editLog.setTaskLogName(categoryName);
+		categoryLogs.add(editLog);
+		currentLog = editLog;
+		isChanged = true;
+
 	}
 
 	/**
 	 * Removes a category log.
 	 */
 	public void removeCategoryLog() {
-		// Implement
+		if (currentLog instanceof AllTasksLog) {
+			throw new IllegalArgumentException("The All Tasks log may not be deleted.");
+		}
+		CategoryLog removeLog = (CategoryLog) currentLog;
+		for (int i = 0; i < categoryLogs.size(); i++) {
+			if (categoryLogs.get(i).equals(removeLog)) {
+				categoryLogs.remove(i);
+				break;
+			}
+		}
+		currentLog = allTasksLog;
+		for (int i = 0; i < allTasksLog.getTaskCount(); i++) {
+			if (allTasksLog.getTask(i).getCategoryName() == removeLog.getName()) {
+				allTasksLog.removeTask(i);
+			}
+		}
+		currentLog = allTasksLog;
+		isChanged = true;
 	}
 
 	/**
@@ -157,7 +225,13 @@ public class Project {
 	 * @param t the task to be added.
 	 */
 	public void addTask(Task t) {
-		// Implement
+		if (currentLog instanceof CategoryLog) {
+			currentLog.addTask(t);
+			allTasksLog.addTask(t);
+			isChanged = true;
+		} else {
+			return;
+		}
 	}
 
 	/**
@@ -169,7 +243,16 @@ public class Project {
 	 * @param taskDetails  the description of the task.
 	 */
 	public void editTask(int idx, String taskName, int taskDuration, String taskDetails) {
-		// Implement
+		if (idx < 0 || idx >= currentLog.getTaskCount() || taskName == null || taskName.isEmpty() || taskDuration < 0
+				|| taskDetails == null || taskDetails.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		Task task = currentLog.getTask(idx);
+		task.setTaskTitle(taskName);
+		task.setTaskDuration(taskDuration);
+		task.setTaskDetails(taskDetails);
+
+		isChanged = true;
 	}
 
 	/**
@@ -178,7 +261,13 @@ public class Project {
 	 * @param idx the index of the task.
 	 */
 	public void removeTask(int idx) {
-		// Implement
+		if (idx < 0 || idx >= currentLog.getTaskCount()) {
+			throw new IllegalArgumentException();
+		}
+		currentLog.removeTask(idx);
+		allTasksLog.removeTask(idx);
+
+		isChanged = true;
 	}
 
 	/**
@@ -187,6 +276,32 @@ public class Project {
 	 * @return a 2D string array of the most recent tasks of each category.
 	 */
 	public String[][] getMostRecentTasks() {
-		return null;
+		String[][] recentTasks = new String[categoryLogs.size() + 1][3];
+
+		if (allTasksLog.getTaskCount() == 0) {
+			recentTasks[0][0] = "None";
+			recentTasks[0][1] = "";
+			recentTasks[0][2] = AllTasksLog.ALL_TASKS_NAME;
+		} else {
+			Task recentTask = allTasksLog.getTask(allTasksLog.getTaskCount() - 1);
+			recentTasks[0][0] = recentTask.getTaskTitle();
+			recentTasks[0][1] = recentTask.getTaskDuration() + "";
+			recentTasks[0][2] = AllTasksLog.ALL_TASKS_NAME;
+		}
+
+		for (int i = 1; i < categoryLogs.size(); i++) {
+			CategoryLog categoryLog = categoryLogs.get(i);
+			if (categoryLog.getTaskCount() == 0) {
+				recentTasks[i][0] = "None";
+				recentTasks[i][1] = "";
+				recentTasks[i][2] = categoryLog.getName();
+			} else {
+				Task recentTask = categoryLog.getTask(categoryLog.getTaskCount() - 1);
+				recentTasks[i][0] = recentTask.getTaskTitle();
+				recentTasks[i][1] = recentTask.getTaskDuration() + "";
+				recentTasks[i][2] = categoryLog.getName();
+			}
+		}
+		return recentTasks;
 	}
 }
