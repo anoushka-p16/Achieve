@@ -101,7 +101,7 @@ public class LogList<E> implements ILogList<E> {
 	/**
 	 * Ensures the capacity of the list has not been exceeded.
 	 * 
-	 * @param INIT_CAP the capacity of the list.
+	 * @param size the size of the list.
 	 * @throws IllegalArgumentException if capacity has been exceeded.
 	 */
 	private void ensureCapacity(int size) {

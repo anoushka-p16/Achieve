@@ -33,7 +33,6 @@ public class Task {
 	/**
 	 * Getter for the task title.
 	 * 
-	 * @param taskTitle the name of the task.
 	 * @return the task title.
 	 */
 	public String getTaskTitle() {

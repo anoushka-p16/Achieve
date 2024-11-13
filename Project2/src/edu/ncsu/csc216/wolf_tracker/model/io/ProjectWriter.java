@@ -56,7 +56,7 @@ public class ProjectWriter {
 			for (int i = 0; i < categoryLogs.length; i++) {
 				String categoryName = categoryLogs[i];
 
-				if (!categoryName.equals("All Tasks")) {
+				if (!"All Tasks".equals(categoryName)) {
 					project.setCurrentTaskLog(categoryName);
 					AbstractTaskLog categoryLog = project.getCurrentLog();
 					pw.println(categoryLog.toString());
