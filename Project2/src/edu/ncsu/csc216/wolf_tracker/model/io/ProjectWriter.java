@@ -28,7 +28,7 @@ public class ProjectWriter {
 
 			String[] categoryLogs = project.getCategoryNames();
 			for (int i = 1; i < categoryLogs.length; i++) {
-				pw.println("#" + categoryLogs[i]);
+				pw.println("# " + categoryLogs[i]);
 			}
 
 			for (int i = 1; i < categoryLogs.length; i++) {
