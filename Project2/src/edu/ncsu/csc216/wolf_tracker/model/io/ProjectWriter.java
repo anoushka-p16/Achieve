@@ -32,8 +32,8 @@ public class ProjectWriter {
 			String[] categoryNames = project.getCategoryNames();
 			for (int i = 0; i < categoryNames.length; i++) {
 				project.setCurrentTaskLog(categoryNames[i]);
-				for (int j = 0; j < project.getCurrentLog().getTaskCount(); i++) {
-					Task task = project.getCurrentLog().getTask(i);
+				for (int j = 0; j < project.getCurrentLog().getTaskCount(); j++) {
+					Task task = project.getCurrentLog().getTask(j);
 					pw.println(task.toString());
 				}
 			}

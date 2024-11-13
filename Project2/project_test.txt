@@ -1,2 +1,1 @@
-!CSC116
-#All Tasks
+! CSC116
