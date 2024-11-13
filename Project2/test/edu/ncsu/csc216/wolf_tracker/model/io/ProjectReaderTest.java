@@ -3,6 +3,7 @@ package edu.ncsu.csc216.wolf_tracker.model.io;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 
 import java.io.File;
 
@@ -13,6 +14,8 @@ import edu.ncsu.csc216.wolf_tracker.model.project.Project;
 class ProjectReaderTest {
 	/** Valid test file. */
 	private String validTest = "test-files/project1.txt";
+	/** Invalid test file. */
+	private String invalidTest = "test-files/project3.txt";
 
 	/**
 	 * Tests reading a valid project file.
@@ -41,4 +44,13 @@ class ProjectReaderTest {
 		assertEquals(0, project.getCurrentLog().getTaskCount());
 	}
 
+	/**
+	 * Tests reading from specific invalid files.
+	 */
+	@Test
+	void testReadProjectFromInvalidTestFile() {
+		File invalidFile = new File(invalidTest);
+		assertTrue(invalidFile.exists());
+		assertThrows(IllegalArgumentException.class, () -> ProjectReader.readProjectFile(invalidFile));
+	}
 }
