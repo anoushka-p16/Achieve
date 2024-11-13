@@ -25,13 +25,14 @@ public class ProjectWriter {
 		try {
 			PrintWriter pw = new PrintWriter(new FileWriter(filename));
 			pw.println("! " + project.getProjectName());
+
 			String[] categoryLogs = project.getCategoryNames();
 			for (int i = 1; i < categoryLogs.length; i++) {
 				pw.println("#" + categoryLogs[i]);
 			}
-			String[] categoryNames = project.getCategoryNames();
-			for (int i = 0; i < categoryNames.length; i++) {
-				project.setCurrentTaskLog(categoryNames[i]);
+
+			for (int i = 0; i < categoryLogs.length; i++) {
+				project.setCurrentTaskLog(categoryLogs[i]);
 				for (int j = 0; j < project.getCurrentLog().getTaskCount(); j++) {
 					Task task = project.getCurrentLog().getTask(j);
 					pw.println(task.toString());
