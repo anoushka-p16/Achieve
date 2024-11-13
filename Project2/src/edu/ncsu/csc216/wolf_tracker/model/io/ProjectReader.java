@@ -71,7 +71,7 @@ public class ProjectReader {
 	 * @param line    a line of the project file.
 	 */
 	private static void processTask(Project project, String line) {
-		String[] taskParams = line.split("\\\\r?\\\\n?[*]");
+		String[] taskParams = line.split("\\r?\\n?[*]");
 		if (taskParams.length < 3) {
 			return;
 		}
