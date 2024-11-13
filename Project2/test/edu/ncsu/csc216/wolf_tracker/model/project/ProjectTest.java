@@ -166,9 +166,9 @@ class ProjectTest {
 
 		assertEquals(4, categoryNames.length);
 		assertEquals("All Tasks", categoryNames[0]);
-		assertEquals("Notes", categoryNames[1]);
-		assertEquals("Labs", categoryNames[2]);
-		assertEquals("Math Homework", categoryNames[3]);
+		assertEquals("Labs", categoryNames[1]);
+		assertEquals("Math Homework", categoryNames[2]);
+		assertEquals("Notes", categoryNames[3]);
 	}
 
 	/**

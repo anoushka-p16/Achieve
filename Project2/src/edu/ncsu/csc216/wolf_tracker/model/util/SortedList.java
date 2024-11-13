@@ -30,20 +30,42 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 *                                  duplicate of another.
 	 */
 	public void add(E element) {
+
 		if (element == null) {
 			throw new IllegalArgumentException("Cannot add null element.");
 		}
+
+		// Create the new node
+		ListNode newNode = new ListNode(element, null);
+
+		// Case 1: If the list is empty, just add the element
 		if (head == null) {
-			head = new ListNode(element, head);
+			head = newNode;
 		} else {
+			// Case 2: Find the correct position to insert the element in sorted order
 			ListNode current = head;
-			while (current.next != null && current.next.data.compareTo(element) <= 0) {
-				if (current.next.data.compareTo(element) == 0) {
-					throw new IllegalArgumentException("Cannot add duplicate element");
-				}
+			ListNode previous = null;
+
+			while (current != null && current.data.compareTo(element) < 0) {
+				previous = current;
 				current = current.next;
 			}
-			current.next = new ListNode(element, current.next);
+
+			// Check for duplicates before insertion
+			if (current != null && current.data.compareTo(element) == 0) {
+				throw new IllegalArgumentException("Cannot add duplicate element.");
+			}
+
+			// Case 3: Insert at the beginning (if previous is null, meaning element is
+			// smaller than head)
+			if (previous == null) {
+				newNode.next = head;
+				head = newNode;
+			} else {
+				// Case 4: Insert after the previous node
+				previous.next = newNode;
+				newNode.next = current;
+			}
 		}
 		size++;
 	}
