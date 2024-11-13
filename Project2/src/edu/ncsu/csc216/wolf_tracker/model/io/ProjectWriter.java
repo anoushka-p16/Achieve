@@ -29,9 +29,13 @@ public class ProjectWriter {
 			for (int i = 1; i < categoryLogs.length; i++) {
 				pw.println("#" + categoryLogs[i]);
 			}
-			for (int i = 0; i < project.getCurrentLog().getTaskCount(); i++) {
-				Task task = project.getCurrentLog().getTask(i);
-				pw.print(task.toString());
+			String[] categoryNames = project.getCategoryNames();
+			for (int i = 0; i < categoryNames.length; i++) {
+				project.setCurrentTaskLog(categoryNames[i]);
+				for (int j = 0; j < project.getCurrentLog().getTaskCount(); i++) {
+					Task task = project.getCurrentLog().getTask(i);
+					pw.println(task.toString());
+				}
 			}
 			pw.close();
 
