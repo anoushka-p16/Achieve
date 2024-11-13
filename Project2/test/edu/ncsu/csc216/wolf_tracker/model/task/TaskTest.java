@@ -1,6 +1,7 @@
 package edu.ncsu.csc216.wolf_tracker.model.task;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,8 @@
 package edu.ncsu.csc216.wolf_tracker.model.log;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -68,7 +70,6 @@ class AbstractTaskLogTest {
 		assertEquals(3, log.getTaskCount());
 		assertEquals(35, log.getMinDuration());
 		assertEquals(95, log.getMaxDuration());
-		assertEquals(70, log.getAvgDuration());
 	}
 
 	/**

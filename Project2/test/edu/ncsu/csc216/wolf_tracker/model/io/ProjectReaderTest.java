@@ -1,6 +1,8 @@
 package edu.ncsu.csc216.wolf_tracker.model.io;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
