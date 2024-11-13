@@ -36,7 +36,7 @@ class AllTasksLogTest {
 			log.setTaskLogName("Other Tasks");
 		});
 
-		assertEquals("The All Tasks list may not be edited.", e.getMessage());
+		assertEquals("The All Tasks log may not be edited.", e.getMessage());
 	}
 
 }

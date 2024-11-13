@@ -34,7 +34,7 @@ public class Project {
 	 */
 	public Project(String projectName) {
 		if (projectName == null || projectName.isEmpty() || projectName.equals(AllTasksLog.ALL_TASKS_NAME)) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid name.");
 		}
 		setProjectName(projectName);
 		this.categoryLogs = new SortedList<CategoryLog>();
@@ -115,7 +115,7 @@ public class Project {
 	 */
 	public void addCategoryLog(String categoryName) {
 		if (categoryName == null || categoryName.isEmpty() || categoryName.equals(AllTasksLog.ALL_TASKS_NAME)) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid name.");
 		}
 		for (int i = 0; i < categoryLogs.size(); i++) {
 			if (categoryLogs.get(i).getName().equalsIgnoreCase(categoryName)) {

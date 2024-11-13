@@ -143,11 +143,13 @@ public abstract class AbstractTaskLog {
 	 * @return the average time spent on a task.
 	 */
 	public double getAvgDuration() {
-		int avg = 0;
+		int average = 0;
 		for (int i = 0; i < getTaskCount(); i++) {
-			avg += list.getLog(i).getTaskDuration();
+			average += list.getLog(i).getTaskDuration();
 		}
-		avg = avg / getTaskCount();
+		double avg = (double) average / getTaskCount();
+
+		avg = Math.round(avg * 10.0) / 10.0;
 		return avg;
 	}
 
