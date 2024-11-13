@@ -54,17 +54,14 @@ public class ProjectWriter {
 	public static void writeStatsFile(File filename, Project project) {
 		try {
 			PrintWriter pw = new PrintWriter(new FileWriter(filename));
-			pw.println(project.toString());
 
 			String[] categoryLogs = project.getCategoryNames();
-			for (int i = 0; i < categoryLogs.length; i++) {
+			for (int i = 1; i < categoryLogs.length; i++) {
 				String categoryName = categoryLogs[i];
 
-				if (!"All Tasks".equals(categoryName)) {
-					project.setCurrentTaskLog(categoryName);
-					AbstractTaskLog categoryLog = project.getCurrentLog();
-					pw.println(categoryLog.toString());
-				}
+				project.setCurrentTaskLog(categoryName);
+				AbstractTaskLog categoryLog = project.getCurrentLog();
+				pw.println(categoryLog.toString());
 			}
 			project.setCurrentTaskLog("All Tasks");
 			AbstractTaskLog allTasksLog = project.getCurrentLog();
