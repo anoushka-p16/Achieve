@@ -56,12 +56,15 @@ public class ProjectWriter {
 			PrintWriter pw = new PrintWriter(new FileWriter(filename));
 
 			String[] categoryLogs = project.getCategoryNames();
-			for (int i = 1; i < categoryLogs.length; i++) {
-				String categoryName = categoryLogs[i];
 
-				project.setCurrentTaskLog(categoryName);
-				AbstractTaskLog categoryLog = project.getCurrentLog();
-				pw.println(categoryLog.toString());
+			if (categoryLogs.length > 0) {
+				for (int i = 1; i < categoryLogs.length; i++) {
+					String categoryName = categoryLogs[i];
+
+					project.setCurrentTaskLog(categoryName);
+					AbstractTaskLog categoryLog = project.getCurrentLog();
+					pw.println(categoryLog.toString());
+				}
 			}
 			project.setCurrentTaskLog("All Tasks");
 			AbstractTaskLog allTasksLog = project.getCurrentLog();
