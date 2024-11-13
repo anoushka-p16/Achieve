@@ -64,10 +64,7 @@ public class LogList<E> implements ILogList<E> {
 	 * @throws IndexOutOfBoundsException if index is out of valid bounds.
 	 */
 	public E removeLog(int idx) {
-		if (size == 0) {
-			throw new IndexOutOfBoundsException();
-		}
-		if (idx < 0 || idx >= size) {
+		if (idx < 0 || idx >= size || list.length == 0) {
 			throw new IndexOutOfBoundsException("Invalid index.");
 		}
 		E remove = list[idx];
