@@ -24,12 +24,11 @@ public class ProjectWriter {
 	public static void writeProjectFile(File filename, Project project) {
 		try {
 			PrintWriter pw = new PrintWriter(new FileWriter(filename));
-			pw.println("!" + project.getProjectName());
+			pw.println("! " + project.getProjectName());
 			String[] categoryLogs = project.getCategoryNames();
-			for (int i = 0; i < categoryLogs.length; i++) {
+			for (int i = 1; i < categoryLogs.length; i++) {
 				pw.println("#" + categoryLogs[i]);
 			}
-
 			for (int i = 0; i < project.getCurrentLog().getTaskCount(); i++) {
 				Task task = project.getCurrentLog().getTask(i);
 				pw.print(task.toString());
