@@ -5,9 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import edu.ncsu.csc216.wolf_tracker.model.log.AbstractTaskLog;
 import edu.ncsu.csc216.wolf_tracker.model.log.CategoryLog;
 import edu.ncsu.csc216.wolf_tracker.model.project.Project;
 import edu.ncsu.csc216.wolf_tracker.model.task.Task;
+import edu.ncsu.csc216.wolf_tracker.model.util.ILogList;
 import edu.ncsu.csc216.wolf_tracker.model.util.LogList;
 
 /**
@@ -49,6 +51,27 @@ public class ProjectWriter {
 	 * @param project  the project for which summary statistics are calculated.
 	 */
 	public static void writeStatsFile(File filename, Project project) {
-		// Implement
+		try {
+			PrintWriter pw = new PrintWriter(new FileWriter(filename));
+			pw.println(project.toString());
+
+			String[] categoryLogs = project.getCategoryNames();
+			for (int i = 0; i < categoryLogs.length; i++) {
+				String categoryName = categoryLogs[i];
+
+				if (!categoryName.equals("All Tasks")) {
+					project.setCurrentTaskLog(categoryName);
+					AbstractTaskLog categoryLog = project.getCurrentLog();
+					pw.println(categoryLog.toString());
+				}
+			}
+			project.setCurrentTaskLog("All Tasks");
+			AbstractTaskLog allTasksLog = project.getCurrentLog();
+			pw.println(allTasksLog.toString());
+			pw.close();
+
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Unable to save file.");
+		}
 	}
 }

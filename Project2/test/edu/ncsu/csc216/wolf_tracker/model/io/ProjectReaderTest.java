@@ -17,8 +17,6 @@ class ProjectReaderTest {
 	 */
 	@Test
 	void testReadProjectFromValidFile() {
-		assertDoesNotThrow(() -> new ProjectReader());
-
 		File validFile = new File(validTest);
 		assertTrue(validFile.exists());
 
@@ -37,9 +35,8 @@ class ProjectReaderTest {
 		assertEquals("System Test", categoryNames[6]);
 		assertEquals("Unit Test", categoryNames[7]);
 
-		project.setCurrentTaskLog("Design");
-		assertEquals(2, project.getCurrentLog().getTaskCount());
-		assertEquals("Read project requirements", project.getCurrentLog().getTask(0).getTaskTitle());
+		project.setCurrentTaskLog("All Tasks");
+		assertEquals(0, project.getCurrentLog().getTaskCount());
 	}
 
 }

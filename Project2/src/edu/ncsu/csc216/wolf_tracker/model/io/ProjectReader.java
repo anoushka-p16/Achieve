@@ -47,12 +47,16 @@ public class ProjectReader {
 
 				if (projectString.startsWith("#")) {
 					categoryList.addLog(projectString.substring(1).trim());
-				} else if (!projectString.isEmpty()) {
-					processTask(project, projectString);
 				}
 			}
 			for (int i = 0; i < categoryList.size(); i++) {
 				project.addCategoryLog(categoryList.getLog(i));
+			}
+			for (int i = 1; i < projectStrings.length; i++) {
+				String projectString = projectStrings[i].trim();
+				if (projectString.startsWith("*")) {
+					processTask(project, projectString);
+				}
 			}
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException("Unable to load file.");
@@ -67,7 +71,7 @@ public class ProjectReader {
 	 * @param line    a line of the project file.
 	 */
 	private static void processTask(Project project, String line) {
-		String[] taskParams = line.split(",");
+		String[] taskParams = line.split("\\\\r?\\\\n?[*]");
 		if (taskParams.length < 3) {
 			return;
 		}
