@@ -2,7 +2,6 @@ package edu.ncsu.csc216.wolf_tracker.model.task;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.ncsu.csc216.wolf_tracker.model.log.CategoryLog;

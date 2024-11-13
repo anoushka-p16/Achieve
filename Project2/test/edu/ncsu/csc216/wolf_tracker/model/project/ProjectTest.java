@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import edu.ncsu.csc216.wolf_tracker.model.log.AllTasksLog;
-import edu.ncsu.csc216.wolf_tracker.model.log.CategoryLog;
 import edu.ncsu.csc216.wolf_tracker.model.task.Task;
-import edu.ncsu.csc216.wolf_tracker.model.util.LogList;
 
 /**
  * Tests the Project class.
@@ -17,14 +15,6 @@ import edu.ncsu.csc216.wolf_tracker.model.util.LogList;
 class ProjectTest {
 	/** Instance of Project for testing. */
 	private Project project;
-	/** Instance of CategoryLog for testing. */
-	private CategoryLog categoryLog;
-	/** Instance of AllTasksLog for testing. */
-	private AllTasksLog allTasksLog;
-	/** Instance of CategoryLog list for testing. */
-	private LogList<CategoryLog> categoryLogs;
-	/** Instance of Task for testing. */
-	private Task task;
 
 	/**
 	 * Tests the Project constructor.

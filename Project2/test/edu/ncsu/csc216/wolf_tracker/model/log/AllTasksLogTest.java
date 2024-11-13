@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import edu.ncsu.csc216.wolf_tracker.model.task.Task;
-
 /**
  * Tests the AllTasksLog class.
  * 

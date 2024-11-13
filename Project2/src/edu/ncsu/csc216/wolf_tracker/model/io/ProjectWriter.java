@@ -6,11 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import edu.ncsu.csc216.wolf_tracker.model.log.AbstractTaskLog;
-import edu.ncsu.csc216.wolf_tracker.model.log.CategoryLog;
 import edu.ncsu.csc216.wolf_tracker.model.project.Project;
 import edu.ncsu.csc216.wolf_tracker.model.task.Task;
-import edu.ncsu.csc216.wolf_tracker.model.util.ILogList;
-import edu.ncsu.csc216.wolf_tracker.model.util.LogList;
 
 /**
  * Handles writing projects and summary statistics to files.
