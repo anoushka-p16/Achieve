@@ -128,8 +128,10 @@ public class Task {
 	 * @return string representation of task.
 	 */
 	public String toString() {
+		String categoryname = "* ";
+
 		String s = "";
-		s += getTaskTitle() + "," + getTaskDuration() + "," + getCategoryName() + "\n";
+		s += categoryname + getTaskTitle() + "," + getTaskDuration() + "," + getCategoryName() + "\n";
 		s += getTaskDetails();
 		return s;
 	}

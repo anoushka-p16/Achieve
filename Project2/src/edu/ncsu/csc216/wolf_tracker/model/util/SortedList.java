@@ -67,7 +67,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 			remove = head;
 			head = head.next;
 		} else {
-			for (int i = 1; i < idx - 1; i++) {
+			for (int i = 0; i < idx - 1; i++) {
 				current = current.next;
 			}
 			remove = current.next;

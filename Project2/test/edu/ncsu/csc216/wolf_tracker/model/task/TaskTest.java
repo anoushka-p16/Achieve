@@ -80,7 +80,7 @@ class TaskTest {
 		category = new CategoryLog("CSC116");
 		task.addCategory(category);
 
-		assertEquals("Task 1,65,CSC116\nCompleted Project 1", task.toString());
+		assertEquals("* Task 1,65,CSC116\nCompleted Project 1", task.toString());
 	}
 
 }
