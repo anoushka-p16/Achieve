@@ -37,7 +37,7 @@ class SortedListTest<E> {
 		assertEquals(3, list.size());
 
 		// Add null element
-		assertThrows(IllegalArgumentException.class, () -> list.add(null));
+		assertThrows(NullPointerException.class, () -> list.add(null));
 
 		// Add duplicate element
 		assertThrows(IllegalArgumentException.class, () -> list.add("B"));
