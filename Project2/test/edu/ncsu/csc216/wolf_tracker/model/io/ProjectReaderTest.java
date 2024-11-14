@@ -11,6 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import edu.ncsu.csc216.wolf_tracker.model.project.Project;
 
+/**
+ * Tests the ProjectReader class.
+ * 
+ * @author Anoushka Piduru
+ */
 class ProjectReaderTest {
 	/** Valid test file. */
 	private String validTest = "test-files/project1.txt";
@@ -42,6 +47,8 @@ class ProjectReaderTest {
 
 		project.setCurrentTaskLog("All Tasks");
 		assertEquals(14, project.getCurrentLog().getTaskCount());
+		assertEquals("Read Project 2 requirements", project.getCurrentLog().getTask(0).getTaskTitle());
+		assertEquals(45, project.getCurrentLog().getTask(0).getTaskDuration());
 
 		project.setCurrentTaskLog("Debugging");
 		assertEquals(1, project.getCurrentLog().getTaskCount());

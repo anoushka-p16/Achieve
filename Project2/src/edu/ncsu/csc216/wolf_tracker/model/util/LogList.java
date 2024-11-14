@@ -1,7 +1,8 @@
 package edu.ncsu.csc216.wolf_tracker.model.util;
 
 /**
- * Implements the ILogList interface with functionality for an array list.
+ * The LogList class implements the ILogList interface with functionality for an
+ * array list.
  * 
  * @param <E> the list of elements.
  * @author Anoushka Piduru

@@ -3,7 +3,8 @@ package edu.ncsu.csc216.wolf_tracker.model.log;
 import edu.ncsu.csc216.wolf_tracker.model.task.Task;
 
 /**
- * Represents one of the two possible types of task logs, a category log.
+ * The CategoryLog class represents one of the two possible types of task logs,
+ * a category log. This includes all the tasks added to a specific category.
  * Extends the AbstractTaskLog class.
  * 
  * @author Anoushka Piduru
@@ -37,8 +38,8 @@ public class CategoryLog extends AbstractTaskLog implements Comparable<CategoryL
 	}
 
 	/**
-	 * Overrides the abstract class method. Abstract class' setTask() is called. The
-	 * CategoryLog will add itself to the Task.
+	 * Overrides the abstract class method for the CategoryLog to add itself to the
+	 * Task. Abstract class' setTask() is called.
 	 * 
 	 * @param idx the index at which a task is being set.
 	 * @param t   the Task being set.
@@ -50,8 +51,8 @@ public class CategoryLog extends AbstractTaskLog implements Comparable<CategoryL
 	}
 
 	/**
-	 * Overrides the abstract class method, Abstract class' addTask() is called. The
-	 * CategoryLog will add itself to the Task.
+	 * Overrides the abstract class method for the CategoryLog to add itself to the
+	 * Task. Abstract class' addTask() is called.
 	 * 
 	 * @param t the task to be added.
 	 */

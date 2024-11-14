@@ -263,8 +263,8 @@ class ProjectTest {
 	void testInvalidRemoveTask() {
 		project = new Project("MA305");
 
-		assertThrows(IllegalArgumentException.class, () -> project.removeTask(-1));
-		assertThrows(IllegalArgumentException.class, () -> project.removeTask(3));
+		assertThrows(IndexOutOfBoundsException.class, () -> project.removeTask(-1));
+		assertThrows(IndexOutOfBoundsException.class, () -> project.removeTask(3));
 	}
 
 	/**

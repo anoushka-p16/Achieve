@@ -10,7 +10,7 @@ import edu.ncsu.csc216.wolf_tracker.model.task.Task;
 import edu.ncsu.csc216.wolf_tracker.model.util.LogList;
 
 /**
- * Handles reading and processing project files.
+ * The ProjectReader class handles the reading and processing of project files.
  * 
  * @author Anoushka Piduru
  */
@@ -19,7 +19,8 @@ public class ProjectReader {
 	 * Reads project from a given file.
 	 * 
 	 * @param filename the file to be read from.
-	 * @return the Project object which was read.
+	 * @return the Project object created from file processing.
+	 * @throws IllegalArgumentException if file was unable to load.
 	 */
 	public static Project readProjectFile(File filename) {
 		String s = "";
@@ -62,8 +63,9 @@ public class ProjectReader {
 	/**
 	 * Processes each line of the project file.
 	 * 
-	 * @param project the project being read.
-	 * @param line    a line of the project file.
+	 * @param project        the project being read.
+	 * @param projectStrings the string array of each line of the project file.
+	 * @param idx            the current starting index of the projectStrings array.
 	 */
 	private static void processTask(Project project, String[] projectStrings, int idx) {
 		String taskLine = projectStrings[idx].substring(1).trim();
@@ -91,8 +93,8 @@ public class ProjectReader {
 	/**
 	 * Processes each line of the task's details.
 	 * 
-	 * @param project the project being read.
-	 * @param line    a line of the project file.
+	 * @param projectStrings the string array of each line of the project.
+	 * @param idx            the current starting index of the projectStrings array.
 	 */
 	private static String processDetails(String[] projectStrings, int idx) {
 		String details = "";

@@ -1,7 +1,8 @@
 package edu.ncsu.csc216.wolf_tracker.model.log;
 
 /**
- * Represents one of the two possible types of task logs, All Tasks. Extends the
+ * The AllTasksLog class represents one of the two possible types of task logs,
+ * All Tasks. This includes all tasks, regardless of category. Extends the
  * AbstractTaskLog class.
  * 
  * @author Anoushka Piduru
@@ -22,6 +23,7 @@ public class AllTasksLog extends AbstractTaskLog {
 	 * name.
 	 * 
 	 * @param taskLogName the name of the task log.
+	 * @throws IllegalArgumentException if the log name is not "All Tasks".
 	 */
 	@Override
 	public void setTaskLogName(String taskLogName) {

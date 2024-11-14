@@ -11,14 +11,14 @@ import edu.ncsu.csc216.wolf_tracker.model.util.ISortedList;
 import edu.ncsu.csc216.wolf_tracker.model.util.SortedList;
 
 /**
- * Handles a project in the WolfTracker system.
+ * The Project class handles a project in the WolfTracker system.
  * 
  * @author Anoushka Piduru
  */
 public class Project {
 	/** An ISortedList of CategoryLogs. */
 	private ISortedList<CategoryLog> categoryLogs;
-	/** An AllTasksLog. */
+	/** An instance of AllTasksLog. */
 	private AllTasksLog allTasksLog;
 	/** An AbstractTaskLog for the current log. */
 	private AbstractTaskLog currentLog;
@@ -31,6 +31,7 @@ public class Project {
 	 * Constructor for Project.
 	 * 
 	 * @param projectName the name of the project.
+	 * @throws IllegalArgumentException if name is invalid.
 	 */
 	public Project(String projectName) {
 		if (projectName == null || projectName.isEmpty() || projectName.equals(AllTasksLog.ALL_TASKS_NAME)) {
@@ -47,6 +48,7 @@ public class Project {
 	 * Saves the project to a file.
 	 * 
 	 * @param projectFile the name of the file being saved to.
+	 * @throws IllegalArgumentException if projectFile is null.
 	 */
 	public void saveProject(File projectFile) {
 		if (projectFile == null) {
@@ -60,6 +62,7 @@ public class Project {
 	 * Saves the summary statistics to a file.
 	 * 
 	 * @param statsFile the name of the file being saved to.
+	 * @throws IllegalArgumentException if statsFile is null.
 	 */
 	public void saveStats(File statsFile) {
 		if (statsFile == null) {
@@ -81,6 +84,7 @@ public class Project {
 	 * Setter for the project name.
 	 * 
 	 * @param projectName the name of the project.
+	 * @throws IllegalArgumentException if projectName is invalid.
 	 */
 	void setProjectName(String projectName) {
 		if (projectName == null || projectName.isEmpty()) {
@@ -112,6 +116,7 @@ public class Project {
 	 * Adds a new category log.
 	 * 
 	 * @param categoryName the name of the category.
+	 * @throws IllegalArgumentException if name is invalid.
 	 */
 	public void addCategoryLog(String categoryName) {
 		if (categoryName == null || categoryName.isEmpty() || categoryName.equals(AllTasksLog.ALL_TASKS_NAME)) {
@@ -175,6 +180,8 @@ public class Project {
 	 * Changes the name of the category log.
 	 * 
 	 * @param categoryName the new category name.
+	 * @throws IllegalArgumentException if the name is invalid or currentLog is
+	 *                                  AllTasksLog.
 	 */
 	public void editCategoryLogName(String categoryName) {
 		if (categoryName == null || categoryName.isEmpty() || categoryName.equals(AllTasksLog.ALL_TASKS_NAME)
@@ -209,6 +216,8 @@ public class Project {
 
 	/**
 	 * Removes a category log.
+	 * 
+	 * @throws IllegalArgumentException if current log is the all tasks log.
 	 */
 	public void removeCategoryLog() {
 		if (currentLog instanceof AllTasksLog) {
@@ -254,6 +263,7 @@ public class Project {
 	 * @param taskName     the name of the task.
 	 * @param taskDuration the time spent on the task.
 	 * @param taskDetails  the description of the task.
+	 * @throws IllegalArgumentException if any of the parameters are invalid.
 	 */
 	public void editTask(int idx, String taskName, int taskDuration, String taskDetails) {
 		if (idx < 0 || idx >= currentLog.getTaskCount() || taskName == null || taskName.isEmpty() || taskDuration < 0
@@ -272,10 +282,11 @@ public class Project {
 	 * Removes the task at a given index.
 	 * 
 	 * @param idx the index of the task.
+	 * @throws IndexOutOfBoundsException if index is invalid.
 	 */
 	public void removeTask(int idx) {
 		if (idx < 0 || idx >= currentLog.getTaskCount()) {
-			throw new IllegalArgumentException();
+			throw new IndexOutOfBoundsException();
 		}
 		Task removeTask = currentLog.getTask(idx);
 

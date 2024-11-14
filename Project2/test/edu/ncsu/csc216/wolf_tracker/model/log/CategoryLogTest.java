@@ -8,6 +8,8 @@ import edu.ncsu.csc216.wolf_tracker.model.task.Task;
 
 /**
  * Tests the CategoryLog class.
+ * 
+ * @author Anoushka Piduru
  */
 class CategoryLogTest {
 	/** Task instance for testing. */

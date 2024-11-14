@@ -5,9 +5,9 @@ import edu.ncsu.csc216.wolf_tracker.model.util.ILogList;
 import edu.ncsu.csc216.wolf_tracker.model.util.LogList;
 
 /**
- * An abstract class representing a log of tasks. Extended by classes
- * representing the two possible types of task logs: AllTasksLog and
- * CategoryLog.
+ * The AbstractTaskLog class is an abstract class representing a log of tasks.
+ * Extended by classes representing the two possible types of task logs:
+ * AllTasksLog and CategoryLog.
  * 
  * @author Anoushka Piduru
  */
@@ -73,6 +73,8 @@ public abstract class AbstractTaskLog {
 	 * 
 	 * @param idx the index to hold the task.
 	 * @param t   the task to be added.
+	 * @throws NullPointerException if element is null and IndexOutOfBoundsException
+	 *                              if index is invalid.
 	 */
 	public void setTask(int idx, Task t) {
 		list.setLog(idx, t);
@@ -83,6 +85,7 @@ public abstract class AbstractTaskLog {
 	 * 
 	 * @param idx the index of the task to be removed.
 	 * @return the task which was removed.
+	 * @throws IndexOutOfBoundsException if index is invalid.
 	 */
 	public Task removeTask(int idx) {
 		return list.removeLog(idx);
@@ -93,6 +96,7 @@ public abstract class AbstractTaskLog {
 	 * 
 	 * @param idx the index of the task.
 	 * @return the task at the specified index.
+	 * @throws IndexOutOfBoundsException if index is invalid.
 	 */
 	public Task getTask(int idx) {
 		return list.getLog(idx);

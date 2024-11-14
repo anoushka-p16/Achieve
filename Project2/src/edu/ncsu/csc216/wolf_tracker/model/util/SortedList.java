@@ -1,8 +1,8 @@
 package edu.ncsu.csc216.wolf_tracker.model.util;
 
 /**
- * Implements the ISortedList interface. Handles functionality for a linked
- * list.
+ * The SortedList class implements the ISortedList interface. Handles
+ * functionality for a linked list.
  * 
  * @param <E> the list of elements.
  * @author Anoushka Piduru
@@ -134,7 +134,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	}
 
 	/**
-	 * Inner class handling nodes in the linked list.
+	 * The ListNode class is an inner class handling nodes in the linked list.
 	 */
 	private class ListNode {
 		/** Data stored in the node. */

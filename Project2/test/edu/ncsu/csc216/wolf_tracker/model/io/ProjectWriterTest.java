@@ -10,6 +10,11 @@ import org.junit.jupiter.api.Test;
 import edu.ncsu.csc216.wolf_tracker.model.project.Project;
 import edu.ncsu.csc216.wolf_tracker.model.task.Task;
 
+/**
+ * Tests the ProjectWriter class.
+ * 
+ * @author Anoushka Piduru
+ */
 class ProjectWriterTest {
 	/** String representing the valid file path. */
 	private String validStats = "test-files/expected_stats.txt";

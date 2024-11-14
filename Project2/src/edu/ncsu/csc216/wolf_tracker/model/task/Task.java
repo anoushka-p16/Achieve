@@ -3,7 +3,7 @@ package edu.ncsu.csc216.wolf_tracker.model.task;
 import edu.ncsu.csc216.wolf_tracker.model.log.CategoryLog;
 
 /**
- * Handles a task in the WolfTracker system.
+ * The Task class handles a task in the WolfTracker system.
  * 
  * @author Anoushka Piduru
  */

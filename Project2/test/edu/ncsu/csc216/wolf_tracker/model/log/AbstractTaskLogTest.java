@@ -21,9 +21,9 @@ class AbstractTaskLogTest {
 	/** Task instance for testing. */
 	private Task task3;
 	/** Category instance for testing. */
-	private CategoryLog log;
+	private AbstractTaskLog log;
 	/** Category instance for testing. */
-	private CategoryLog log2;
+	private AbstractTaskLog log2;
 
 	/**
 	 * Tests the construction of an AbstractTaskLog object.
