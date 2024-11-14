@@ -28,6 +28,13 @@ class ProjectWriterTest {
 
 		project = new Project("CSC116");
 
+		project.addCategoryLog("CSC");
+
+		project.addTask(new Task("Task 1", 60, "Description 1"));
+		project.addTask(new Task("Task 2", 60, "Description 2"));
+		project.addTask(new Task("Task 3", 60, "Description 3"));
+		assertEquals(3, project.getCurrentLog().getTaskCount());
+
 		File validFile2 = new File("project_test.txt");
 		ProjectWriter.writeProjectFile(validFile2, project);
 	}
@@ -43,9 +50,9 @@ class ProjectWriterTest {
 		project = new Project("CSC116");
 		project.addCategoryLog("CSC");
 
-		project.addTask(new Task("Task 1", 60, "Descripion 1"));
-		project.addTask(new Task("Task 2", 60, "Descripion 2"));
-		project.addTask(new Task("Task 3", 60, "Descripion 3"));
+		project.addTask(new Task("Task 1", 60, "Description 1"));
+		project.addTask(new Task("Task 2", 60, "Description 2"));
+		project.addTask(new Task("Task 3", 60, "Description 3"));
 		assertEquals(3, project.getCurrentLog().getTaskCount());
 
 		File validFile2 = new File("stats_test.txt");

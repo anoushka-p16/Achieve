@@ -44,15 +44,13 @@ public class ProjectReader {
 			for (int i = 1; i < projectStrings.length; i++) {
 				String projectString = projectStrings[i].trim();
 
-				// If the line starts with "#", it's a category name
 				if (projectString.startsWith("#")) {
 					String categoryName = projectString.substring(1).trim();
-					project.addCategoryLog(categoryName); // Add the category directly to the project
+					project.addCategoryLog(categoryName);
 				}
 
-				// If the line starts with "*", it's a task description
 				if (projectString.startsWith("*")) {
-					processTask(project, projectString); // Process the task
+					processTask(project, projectStrings, i);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -67,8 +65,9 @@ public class ProjectReader {
 	 * @param project the project being read.
 	 * @param line    a line of the project file.
 	 */
-	private static void processTask(Project project, String line) {
-		String[] taskParams = line.split("\\r?\\n?[*]");
+	private static void processTask(Project project, String[] projectStrings, int idx) {
+		String taskLine = projectStrings[idx].substring(1).trim();
+		String[] taskParams = taskLine.split(",");
 		if (taskParams.length < 3) {
 			return;
 		}
@@ -81,18 +80,29 @@ public class ProjectReader {
 		} catch (NumberFormatException e) {
 			return;
 		}
-
 		String categoryName = taskParams[2].trim();
+		String taskDetails = processDetails(projectStrings, idx + 1);
 
-		String taskDetails = "";
-		for (int i = 3; i < taskParams.length; i++) {
-			taskDetails += taskParams[i].trim() + "\n";
-		}
-
-		Task task = new Task(taskTitle, taskDuration, taskDetails);
-
-		project.addCategoryLog(categoryName);
 		project.setCurrentTaskLog(categoryName);
+		Task task = new Task(taskTitle, taskDuration, taskDetails);
 		project.addTask(task);
+	}
+
+	/**
+	 * Processes each line of the task's details.
+	 * 
+	 * @param project the project being read.
+	 * @param line    a line of the project file.
+	 */
+	private static String processDetails(String[] projectStrings, int idx) {
+		String details = "";
+		for (int i = idx; i < projectStrings.length; i++) {
+			String line = projectStrings[i].trim();
+			if (line.startsWith("*") || line.startsWith("#")) {
+				break;
+			}
+			details += line + "\n";
+		}
+		return details.trim();
 	}
 }

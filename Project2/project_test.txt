@@ -1,1 +1,8 @@
 ! CSC116
+# CSC
+* Task 1,60,CSC
+Description 1
+* Task 2,60,CSC
+Description 2
+* Task 3,60,CSC
+Description 3

@@ -41,7 +41,33 @@ class ProjectReaderTest {
 		assertEquals("Unit Test", categoryNames[7]);
 
 		project.setCurrentTaskLog("All Tasks");
+		assertEquals(14, project.getCurrentLog().getTaskCount());
+
+		project.setCurrentTaskLog("Debugging");
+		assertEquals(1, project.getCurrentLog().getTaskCount());
+
+		project.setCurrentTaskLog("Deployment");
 		assertEquals(0, project.getCurrentLog().getTaskCount());
+
+		project.setCurrentTaskLog("Design");
+		assertEquals(5, project.getCurrentLog().getTaskCount());
+		assertEquals("Read Project 2 requirements", project.getCurrentLog().getTask(0).getTaskTitle());
+		assertEquals(45, project.getCurrentLog().getTask(0).getTaskDuration());
+
+		assertEquals("Created CRC Cards", project.getCurrentLog().getTask(1).getTaskTitle());
+		assertEquals(27, project.getCurrentLog().getTask(1).getTaskDuration());
+
+		project.setCurrentTaskLog("Documentation");
+		assertEquals(2, project.getCurrentLog().getTaskCount());
+
+		project.setCurrentTaskLog("Implementation");
+		assertEquals(3, project.getCurrentLog().getTaskCount());
+
+		project.setCurrentTaskLog("System Test");
+		assertEquals(2, project.getCurrentLog().getTaskCount());
+
+		project.setCurrentTaskLog("Unit Test");
+		assertEquals(1, project.getCurrentLog().getTaskCount());
 	}
 
 	/**
