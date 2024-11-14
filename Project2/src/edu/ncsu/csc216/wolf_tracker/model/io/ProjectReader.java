@@ -41,21 +41,18 @@ public class ProjectReader {
 
 			project = new Project(lineOne.substring(1).trim());
 
-			LogList<String> categoryList = new LogList<>();
 			for (int i = 1; i < projectStrings.length; i++) {
 				String projectString = projectStrings[i].trim();
 
+				// If the line starts with "#", it's a category name
 				if (projectString.startsWith("#")) {
-					categoryList.addLog(projectString.substring(1).trim());
+					String categoryName = projectString.substring(1).trim();
+					project.addCategoryLog(categoryName); // Add the category directly to the project
 				}
-			}
-			for (int i = 0; i < categoryList.size(); i++) {
-				project.addCategoryLog(categoryList.getLog(i));
-			}
-			for (int i = 1; i < projectStrings.length; i++) {
-				String projectString = projectStrings[i].trim();
+
+				// If the line starts with "*", it's a task description
 				if (projectString.startsWith("*")) {
-					processTask(project, projectString);
+					processTask(project, projectString); // Process the task
 				}
 			}
 		} catch (FileNotFoundException e) {
