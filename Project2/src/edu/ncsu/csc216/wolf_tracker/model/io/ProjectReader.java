@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import edu.ncsu.csc216.wolf_tracker.model.project.Project;
 import edu.ncsu.csc216.wolf_tracker.model.task.Task;
-import edu.ncsu.csc216.wolf_tracker.model.util.LogList;
 
 /**
  * The ProjectReader class handles the reading and processing of project files.
@@ -95,6 +94,7 @@ public class ProjectReader {
 	 * 
 	 * @param projectStrings the string array of each line of the project.
 	 * @param idx            the current starting index of the projectStrings array.
+	 * @return the taskDetails as a string.
 	 */
 	private static String processDetails(String[] projectStrings, int idx) {
 		String details = "";
