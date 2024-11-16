@@ -56,6 +56,7 @@ public class ProjectReader {
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException("Unable to load file.");
 		}
+		project.setCurrentTaskLog("All Tasks");
 		return project;
 	}
 

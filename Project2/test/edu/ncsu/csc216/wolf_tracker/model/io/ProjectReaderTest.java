@@ -48,7 +48,20 @@ class ProjectReaderTest {
 		project.setCurrentTaskLog("All Tasks");
 		assertEquals(14, project.getCurrentLog().getTaskCount());
 		assertEquals("Read Project 2 requirements", project.getCurrentLog().getTask(0).getTaskTitle());
-		assertEquals(45, project.getCurrentLog().getTask(0).getTaskDuration());
+		assertEquals("Created CRC Cards", project.getCurrentLog().getTask(1).getTaskTitle());
+		assertEquals("Transfered CRC Cards to UMLetino", project.getCurrentLog().getTask(2).getTaskTitle());
+		assertEquals("Downloaded design proposal and rational template",
+				project.getCurrentLog().getTask(3).getTaskTitle());
+		assertEquals("Wrote design proposal and rationale", project.getCurrentLog().getTask(4).getTaskTitle());
+		assertEquals("Identify 5 system tests", project.getCurrentLog().getTask(5).getTaskTitle());
+		assertEquals("Created P2P2 skeleton", project.getCurrentLog().getTask(6).getTaskTitle());
+		assertEquals("Added Javadoc", project.getCurrentLog().getTask(7).getTaskTitle());
+		assertEquals("Implemented & Tested POJO", project.getCurrentLog().getTask(8).getTaskTitle());
+		assertEquals("Implemented file reader class", project.getCurrentLog().getTask(9).getTaskTitle());
+		assertEquals("Tested reader class", project.getCurrentLog().getTask(10).getTaskTitle());
+		assertEquals("Debugging Reader Bug", project.getCurrentLog().getTask(11).getTaskTitle());
+		assertEquals("Ran System Tests", project.getCurrentLog().getTask(12).getTaskTitle());
+		assertEquals("Generated Javadoc", project.getCurrentLog().getTask(13).getTaskTitle());
 
 		project.setCurrentTaskLog("Debugging");
 		assertEquals(1, project.getCurrentLog().getTaskCount());
