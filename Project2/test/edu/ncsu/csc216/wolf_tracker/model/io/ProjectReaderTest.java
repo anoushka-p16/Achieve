@@ -88,6 +88,18 @@ class ProjectReaderTest {
 
 		project.setCurrentTaskLog("Unit Test");
 		assertEquals(1, project.getCurrentLog().getTaskCount());
+
+		// Test read and remove task
+		project.setCurrentTaskLog("Design");
+		project.getCurrentLog().removeTask(3);
+		assertEquals(4, project.getCurrentLog().getTaskCount());
+
+		project.setCurrentTaskLog("All Tasks");
+		assertEquals(13, project.getCurrentLog().getTaskCount());
+		project.getCurrentLog().removeTask(9);
+		assertEquals(12, project.getCurrentLog().getTaskCount());
+		project.setCurrentTaskLog("Unit Test");
+		assertEquals(0, project.getCurrentLog().getTaskCount());
 	}
 
 	/**

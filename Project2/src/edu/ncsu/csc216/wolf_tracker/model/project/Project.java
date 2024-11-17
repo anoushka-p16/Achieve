@@ -289,17 +289,14 @@ public class Project {
 			throw new IndexOutOfBoundsException();
 		}
 		Task removeTask = currentLog.getTask(idx);
-
 		currentLog.removeTask(idx);
 
+		setCurrentTaskLog(AllTasksLog.ALL_TASKS_NAME);
 		for (int i = 0; i < allTasksLog.getTaskCount(); i++) {
-			Task task = allTasksLog.getTask(i);
-			if (task.equals(removeTask)) {
+			if (getCurrentLog().getTask(i) == removeTask) {
 				allTasksLog.removeTask(i);
-				break;
 			}
 		}
-
 		setChanged(true);
 	}
 
@@ -322,7 +319,7 @@ public class Project {
 			recentTasks[0][2] = AllTasksLog.ALL_TASKS_NAME;
 		}
 
-		for (int i = 0; i < categoryLogs.size(); i++) {
+		for (int i = 1; i < categoryLogs.size(); i++) {
 			CategoryLog categoryLog = categoryLogs.get(i);
 			if (categoryLog.getTaskCount() == 0) {
 				recentTasks[i + 1][0] = "None";
