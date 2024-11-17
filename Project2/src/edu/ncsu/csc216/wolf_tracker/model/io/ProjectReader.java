@@ -91,7 +91,7 @@ public class ProjectReader {
 			}
 		}
 		if (!found) {
-			throw new IllegalArgumentException();
+			return;
 		}
 		String taskDetails = processDetails(projectStrings, idx + 1);
 
