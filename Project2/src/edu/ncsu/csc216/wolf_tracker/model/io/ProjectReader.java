@@ -93,6 +93,10 @@ public class ProjectReader {
 		if (!found) {
 			return;
 		}
+		if (taskTitle == null || taskDuration <= 0 || categoryName == null || taskTitle.isEmpty()
+				|| categoryName.isEmpty()) {
+			return;
+		}
 		String taskDetails = processDetails(projectStrings, idx + 1);
 
 		project.setCurrentTaskLog(categoryName);
