@@ -319,7 +319,7 @@ public class Project {
 			recentTasks[0][2] = AllTasksLog.ALL_TASKS_NAME;
 		}
 
-		for (int i = 1; i < categoryLogs.size(); i++) {
+		for (int i = 0; i < categoryLogs.size(); i++) {
 			CategoryLog categoryLog = categoryLogs.get(i);
 			if (categoryLog.getTaskCount() == 0) {
 				recentTasks[i + 1][0] = "None";
