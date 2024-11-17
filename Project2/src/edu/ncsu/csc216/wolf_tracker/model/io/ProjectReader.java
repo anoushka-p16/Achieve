@@ -83,6 +83,16 @@ public class ProjectReader {
 			return;
 		}
 		String categoryName = taskParams[2].trim();
+		String[] categoryNames = project.getCategoryNames();
+		boolean found = false;
+		for (int i = 0; i < categoryNames.length; i++) {
+			if (categoryName.equals(categoryNames[i])) {
+				found = true;
+			}
+		}
+		if (!found) {
+			throw new IllegalArgumentException();
+		}
 		String taskDetails = processDetails(projectStrings, idx + 1);
 
 		project.setCurrentTaskLog(categoryName);
