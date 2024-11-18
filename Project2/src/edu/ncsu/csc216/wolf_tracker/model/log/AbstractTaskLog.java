@@ -135,6 +135,9 @@ public abstract class AbstractTaskLog {
 	 * @return the maximum time spent on a task.
 	 */
 	public int getMaxDuration() {
+		if (getTaskCount() == 0) {
+			return 0;
+		}
 		int max = list.getLog(0).getTaskDuration();
 		for (int i = 1; i < getTaskCount(); i++) {
 			if (list.getLog(i).getTaskDuration() > max) {
@@ -150,6 +153,9 @@ public abstract class AbstractTaskLog {
 	 * @return the average time spent on a task.
 	 */
 	public double getAvgDuration() {
+		if (getTaskCount() == 0) {
+			return 0;
+		}
 		int average = 0;
 		for (int i = 0; i < getTaskCount(); i++) {
 			average += list.getLog(i).getTaskDuration();
