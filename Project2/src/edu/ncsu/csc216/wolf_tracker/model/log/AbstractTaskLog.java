@@ -188,8 +188,29 @@ public abstract class AbstractTaskLog {
 	 */
 	public String toString() {
 		String s = "Category,Count,Min,Max,Average" + "\n";
-		s += getName() + "," + getTaskCount() + "," + getMinDuration() + "," + getMaxDuration() + "," + getAvgDuration()
-				+ "\n";
+
+		String minDuration = "";
+		if (getMinDuration() == 0) {
+			minDuration += "";
+		} else {
+			minDuration = getMinDuration() + "";
+		}
+
+		String maxDuration = "";
+		if (getMaxDuration() == 0) {
+			maxDuration += "";
+		} else {
+			maxDuration = getMaxDuration() + "";
+		}
+
+		String avgDuration = "";
+		if (getAvgDuration() == 0) {
+			avgDuration += "";
+		} else {
+			avgDuration = getAvgDuration() + "";
+		}
+
+		s += getName() + "," + getTaskCount() + "," + minDuration + "," + maxDuration + "," + avgDuration + "\n";
 		return s;
 	}
 }
