@@ -165,8 +165,8 @@ class AbstractTaskLogTest {
 		log2 = new CategoryLog("Homework");
 		log2.addTask(task3);
 
-		assertEquals("Category,Count,Min,Max,Average\nProjects,2,35,95,65.0", log.toString());
-		assertEquals("Category,Count,Min,Max,Average\nHomework,1,80,80,80.0", log2.toString());
+		assertEquals("Projects,2,35,95,65.0", log.toString());
+		assertEquals("Homework,1,80,80,80.0", log2.toString());
 	}
 
 	/**
