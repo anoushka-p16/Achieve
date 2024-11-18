@@ -35,6 +35,7 @@ class ProjectReaderTest {
 
 		assertEquals("CSC 216 Task Log", project.getProjectName());
 
+		// Test category names
 		String[] categoryNames = project.getCategoryNames();
 		assertEquals("All Tasks", categoryNames[0]);
 		assertEquals("Debugging", categoryNames[1]);
@@ -45,6 +46,7 @@ class ProjectReaderTest {
 		assertEquals("System Test", categoryNames[6]);
 		assertEquals("Unit Test", categoryNames[7]);
 
+		// Test tasks
 		project.setCurrentTaskLog("All Tasks");
 		assertEquals(14, project.getCurrentLog().getTaskCount());
 		assertEquals("Read Project 2 requirements", project.getCurrentLog().getTask(0).getTaskTitle());
@@ -63,6 +65,7 @@ class ProjectReaderTest {
 		assertEquals("Ran System Tests", project.getCurrentLog().getTask(12).getTaskTitle());
 		assertEquals("Generated Javadoc", project.getCurrentLog().getTask(13).getTaskTitle());
 
+		// Test category task counts
 		project.setCurrentTaskLog("Debugging");
 		assertEquals(1, project.getCurrentLog().getTaskCount());
 
@@ -101,6 +104,9 @@ class ProjectReaderTest {
 		// assertEquals(12, project.getCurrentLog().getTaskCount());
 		// project.setCurrentTaskLog("Unit Test");
 		// assertEquals(0, project.getCurrentLog().getTaskCount());
+
+		// Test recent tasks
+
 	}
 
 	/**
