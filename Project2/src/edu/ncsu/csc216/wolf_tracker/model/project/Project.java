@@ -322,7 +322,7 @@ public class Project {
 //			recentTasks[0][2] = AllTasksLog.ALL_TASKS_NAME;
 //		}
 
-		for (int i = 0; i < categoryNames.length; i++) {
+		for (int i = 1; i < categoryNames.length; i++) {
 			setCurrentTaskLog(categoryNames[i]);
 			AbstractTaskLog categoryLog = getCurrentLog();
 			if (categoryLog.getTaskCount() == 0) {
