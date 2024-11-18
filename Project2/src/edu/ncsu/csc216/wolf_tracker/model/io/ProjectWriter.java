@@ -60,7 +60,7 @@ public class ProjectWriter {
 			PrintWriter pw = new PrintWriter(new FileWriter(filename));
 
 			String[] categoryLogs = project.getCategoryNames();
-			pw.println("Category,Count,Min,Max,Average" + "\n");
+			pw.println("Category,Count,Min,Max,Average");
 			for (int i = 1; i < categoryLogs.length; i++) {
 				String categoryName = categoryLogs[i];
 
