@@ -1,4 +1,3 @@
 Category,Count,Min,Max,Average
-
 CSC,3,60,60,60.0
 All Tasks,3,60,60,60.0
