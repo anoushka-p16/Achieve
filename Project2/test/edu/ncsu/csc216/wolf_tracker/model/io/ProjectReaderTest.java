@@ -93,8 +93,9 @@ class ProjectReaderTest {
 		project.setCurrentTaskLog("Design");
 		project.getCurrentLog().removeTask(3);
 		assertEquals(4, project.getCurrentLog().getTaskCount());
-
 		project.setCurrentTaskLog("All Tasks");
+		// assertEquals(13, project.getCurrentLog().getTaskCount());
+
 		// assertEquals(13, project.getCurrentLog().getTaskCount());
 		// project.getCurrentLog().removeTask(9);
 		// assertEquals(12, project.getCurrentLog().getTaskCount());
