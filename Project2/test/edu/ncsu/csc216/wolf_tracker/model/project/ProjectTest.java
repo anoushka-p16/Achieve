@@ -314,7 +314,7 @@ class ProjectTest {
 
 		assertEquals("Task 2", recentTasks2[0][0]);
 		assertEquals("120", recentTasks2[0][1]);
-		assertEquals(AllTasksLog.ALL_TASKS_NAME, recentTasks2[0][2]);
+		assertEquals("Labs", recentTasks2[0][2]);
 	}
 
 	/**
@@ -335,7 +335,7 @@ class ProjectTest {
 
 		assertEquals("Lab Task 2", recentTasks[0][0]);
 		assertEquals("90", recentTasks[0][1]);
-		assertEquals(AllTasksLog.ALL_TASKS_NAME, recentTasks[0][2]);
+		assertEquals("Labs", recentTasks[0][2]);
 	}
 
 	/**
@@ -360,6 +360,6 @@ class ProjectTest {
 
 		assertEquals("Homework Task 1", recentTasks[0][0]);
 		assertEquals("30", recentTasks[0][1]);
-		assertEquals(AllTasksLog.ALL_TASKS_NAME, recentTasks[0][2]);
+		assertEquals("Homework", recentTasks[0][2]);
 	}
 }

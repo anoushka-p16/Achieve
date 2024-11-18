@@ -310,30 +310,25 @@ public class Project {
 		String[] categoryNames = getCategoryNames();
 		String[][] recentTasks = new String[categoryNames.length + 1][3];
 
-//		if (allTasksLog.getTaskCount() == 0) {
-//			recentTasks[0][0] = "None";
-//			recentTasks[0][1] = "";
-//			recentTasks[0][2] = AllTasksLog.ALL_TASKS_NAME;
-//			return recentTasks;
-//		} else {
-//			Task recentTask = allTasksLog.getTask(allTasksLog.getTaskCount() - 1);
-//			recentTasks[0][0] = recentTask.getTaskTitle();
-//			recentTasks[0][1] = recentTask.getTaskDuration() + "";
-//			recentTasks[0][2] = AllTasksLog.ALL_TASKS_NAME;
-//		}
+		if (allTasksLog.getTaskCount() == 0) {
+			recentTasks[0][0] = "None";
+			recentTasks[0][1] = "";
+			recentTasks[0][2] = AllTasksLog.ALL_TASKS_NAME;
+			return recentTasks;
+		}
 
 		for (int i = 1; i < categoryNames.length; i++) {
 			setCurrentTaskLog(categoryNames[i]);
 			AbstractTaskLog categoryLog = getCurrentLog();
 			if (categoryLog.getTaskCount() == 0) {
-				recentTasks[i][0] = "None";
-				recentTasks[i][1] = "";
-				recentTasks[i][2] = categoryLog.getName();
+				recentTasks[i - 1][0] = "None";
+				recentTasks[i - 1][1] = "";
+				recentTasks[i - 1][2] = categoryLog.getName();
 			} else {
 				Task recentTask = categoryLog.getTask(categoryLog.getTaskCount() - 1);
-				recentTasks[i][0] = recentTask.getTaskTitle();
-				recentTasks[i][1] = recentTask.getTaskDuration() + "";
-				recentTasks[i][2] = categoryLog.getName();
+				recentTasks[i - 1][0] = recentTask.getTaskTitle();
+				recentTasks[i - 1][1] = recentTask.getTaskDuration() + "";
+				recentTasks[i - 1][2] = categoryLog.getName();
 			}
 		}
 		return recentTasks;
