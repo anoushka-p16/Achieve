@@ -118,7 +118,7 @@ public abstract class AbstractTaskLog {
 	 */
 	public int getMinDuration() {
 		if (getTaskCount() == 0) {
-			throw new IllegalStateException();
+			return 0;
 		}
 		int min = list.getLog(0).getTaskDuration();
 		for (int i = 1; i < getTaskCount(); i++) {
