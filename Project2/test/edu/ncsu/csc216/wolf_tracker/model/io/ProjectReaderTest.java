@@ -94,19 +94,16 @@ class ProjectReaderTest {
 
 		// Test read and remove task
 		project.setCurrentTaskLog("Design");
-		project.getCurrentLog().removeTask(3);
+		project.removeTask(3);
 		assertEquals(4, project.getCurrentLog().getTaskCount());
 		project.setCurrentTaskLog("All Tasks");
-		// assertEquals(13, project.getCurrentLog().getTaskCount());
+		assertEquals(13, project.getCurrentLog().getTaskCount());
 
-		// assertEquals(13, project.getCurrentLog().getTaskCount());
-		// project.getCurrentLog().removeTask(9);
-		// assertEquals(12, project.getCurrentLog().getTaskCount());
-		// project.setCurrentTaskLog("Unit Test");
-		// assertEquals(0, project.getCurrentLog().getTaskCount());
-
-		// Test recent tasks
-
+		assertEquals(13, project.getCurrentLog().getTaskCount());
+		project.removeTask(9);
+		assertEquals(12, project.getCurrentLog().getTaskCount());
+		project.setCurrentTaskLog("Unit Test");
+		assertEquals(0, project.getCurrentLog().getTaskCount());
 	}
 
 	/**

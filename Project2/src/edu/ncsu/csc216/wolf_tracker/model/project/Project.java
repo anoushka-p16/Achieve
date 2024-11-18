@@ -153,6 +153,7 @@ public class Project {
 	 * @param logName the name of the log.
 	 */
 	public void setCurrentTaskLog(String logName) {
+		currentLog = getCurrentLog();
 		if (logName.equals(AllTasksLog.ALL_TASKS_NAME)) {
 			currentLog = allTasksLog;
 		} else {
@@ -288,16 +289,35 @@ public class Project {
 		if (idx < 0 || idx >= currentLog.getTaskCount()) {
 			throw new IndexOutOfBoundsException();
 		}
-		Task removeTask = currentLog.getTask(idx);
-		currentLog.removeTask(idx);
 
-		for (int i = 0; i < allTasksLog.getTaskCount(); i++) {
-			Task taskInAllTasks = allTasksLog.getTask(i);
-			if (taskInAllTasks.getTaskTitle().equals(removeTask.getTaskTitle())) {
-				allTasksLog.removeTask(i);
-				break;
+		Task removeTask = currentLog.getTask(idx);
+
+		if (currentLog instanceof AllTasksLog) {
+			allTasksLog.removeTask(idx);
+
+			for (int i = 0; i < categoryLogs.size(); i++) {
+				CategoryLog categoryLog = categoryLogs.get(i);
+				for (int j = 0; j < categoryLog.getTaskCount(); j++) {
+					Task taskInCategory = categoryLog.getTask(j);
+					if (taskInCategory.getTaskTitle().equals(removeTask.getTaskTitle())) {
+						categoryLog.removeTask(j);
+						break;
+					}
+				}
+			}
+		} else if (currentLog instanceof CategoryLog) {
+			CategoryLog categoryLog = (CategoryLog) currentLog;
+			categoryLog.removeTask(idx);
+
+			for (int i = 0; i < allTasksLog.getTaskCount(); i++) {
+				Task taskInAllTasks = allTasksLog.getTask(i);
+				if (taskInAllTasks.getTaskTitle().equals(removeTask.getTaskTitle())) {
+					allTasksLog.removeTask(i);
+					break;
+				}
 			}
 		}
+		currentLog = getCurrentLog();
 		setChanged(true);
 	}
 
