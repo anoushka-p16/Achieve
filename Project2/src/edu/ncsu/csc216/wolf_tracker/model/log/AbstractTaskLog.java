@@ -210,7 +210,8 @@ public abstract class AbstractTaskLog {
 			avgDuration = getAvgDuration() + "";
 		}
 
-		s += getName() + "," + getTaskCount() + "," + minDuration + "," + maxDuration + "," + avgDuration + "\n";
-		return s;
+		String string = "";
+		string += getName() + "," + getTaskCount() + "," + minDuration + "," + maxDuration + "," + avgDuration;
+		return s + string;
 	}
 }
