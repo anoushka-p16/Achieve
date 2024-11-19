@@ -97,7 +97,7 @@ public class Task {
 	}
 
 	/**
-	 * Adds a new category.
+	 * Adds a new category to the project.
 	 * 
 	 * @param category the category to be added.
 	 * @throws IllegalArgumentException if category is null or an assigned category

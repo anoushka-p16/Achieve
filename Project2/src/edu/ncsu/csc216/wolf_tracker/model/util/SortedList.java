@@ -90,7 +90,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	}
 
 	/**
-	 * Determined if the list contains a given element.
+	 * Determines if the list contains a given element.
 	 * 
 	 * @param element the element being checked for.
 	 * @return true if the list contains the element, false if not.

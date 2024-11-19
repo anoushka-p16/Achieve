@@ -64,7 +64,8 @@ public class ProjectReader {
 	 * Processes each line of the project file.
 	 * 
 	 * @param project        the project being read.
-	 * @param projectStrings the string array of each line of the project file.
+	 * @param projectStrings the string array containing each line of the project
+	 *                       file.
 	 * @param idx            the current starting index of the projectStrings array.
 	 */
 	private static void processTask(Project project, String[] projectStrings, int idx) {
@@ -107,7 +108,7 @@ public class ProjectReader {
 	/**
 	 * Processes each line of the task's details.
 	 * 
-	 * @param projectStrings the string array of each line of the project.
+	 * @param projectStrings the string array containing each line of the project.
 	 * @param idx            the current starting index of the projectStrings array.
 	 * @return the taskDetails as a string.
 	 */

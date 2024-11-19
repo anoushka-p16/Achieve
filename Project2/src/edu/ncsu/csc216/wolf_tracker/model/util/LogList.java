@@ -100,10 +100,10 @@ public class LogList<E> implements ILogList<E> {
 	}
 
 	/**
-	 * Ensures the capacity of the list has not been exceeded.
+	 * Ensures the capacity of the list has not been exceeded. If the capacity has
+	 * been exceeded, a grow array functionality is carried out.
 	 * 
 	 * @param size the size of the list.
-	 * @throws IllegalArgumentException if capacity has been exceeded.
 	 */
 	private void ensureCapacity(int size) {
 		if (size >= list.length) {
